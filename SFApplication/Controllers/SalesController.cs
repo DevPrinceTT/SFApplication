@@ -13,5 +13,12 @@ namespace SFApplication.Controllers
         {
             return View();
         }
+
+        // POST: Sales
+        [HttpPost]
+        public ActionResult Index(int id)
+        {
+            return View();
+        }
     }
 }
