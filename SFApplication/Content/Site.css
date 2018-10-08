@@ -7,6 +7,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    min-width: 500px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -33,4 +34,47 @@ textarea {
         float: none;
         padding: 10px 15px;
     }
+}
+
+/*full page width*/
+div.container.full-width {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    width:100%;
+}
+
+/*remove padding from bootstrap containers*/
+div.col-no-padding {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+/*add 20px buffer above containers*/
+div.top-buffer {
+    margin-top: 20px !important;
+}
+
+
+/*custom nav bar styles*/
+.navbar{
+    padding-right:15px;
+    padding-left:15px;
+}
+
+/*add padding for icons*/
+i.glyphicon{
+    padding-right:8px;
+}
+
+/*remove styles for unordered lists*/
+ul.list-no-style{
+    list-style:none;
+    padding-left:0px;
+}
+
+/*minimum width*/
+div.min-1366{
+    min-width:1366px !important;
 }

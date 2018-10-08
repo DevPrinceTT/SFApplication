@@ -6,18 +6,22 @@ using System.Web.Mvc;
 
 namespace SFApplication.Controllers
 {
-    public class SalesController : Controller
+    public class ForecastController : Controller
     {
-        // GET: Sales
+        // GET: Forecast/
         public ActionResult Index()
         {
             return View();
         }
 
-        // POST: Sales
-        [HttpPost]
-        public ActionResult Index(int id)
+        // GET: Forecast/Tool/2018
+        public ActionResult Tool(int id = 0)
         {
+            if (id < 1)
+            {
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
     }
