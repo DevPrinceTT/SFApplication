@@ -1,1 +1,1 @@
-﻿var app = angular.module('SFApplication', []);
+﻿var app = angular.module('SFApplication', ['angularUtils.directives.dirPagination']);

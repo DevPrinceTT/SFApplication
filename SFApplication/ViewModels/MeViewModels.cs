@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SFApplication.Models
+namespace SFApplication.ViewModels
 {
     // Models returned by MeController actions.
     public class GetViewModel

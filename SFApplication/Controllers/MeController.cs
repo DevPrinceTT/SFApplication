@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
-using SFApplication.Models;
+using SFApplication.ViewModels;
 
 namespace SFApplication.Controllers
 {

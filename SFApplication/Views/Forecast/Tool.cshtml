@@ -4,10 +4,128 @@
     ViewBag.FullWidth = "full-width min-1366";
 }
 
-<div class="col-no-padding" ng-controller="ToolsController" id="tool-container">
-    <div class="row">
-        <div class="col-md-2">{{ 9 + 9}}</div>
-        <div class="col-md-2">{{ firstName }}</div>
+<div class="{{ 'show-tool' }} col-no-padding" ng-controller="ToolsController" id="tool-container">
+    <div class="row col-no-padding" style="">
+        <div class="tool-header">
+            <div class="pagination-container">
+                @*<dir-pagination-controls></dir-pagination-controls>*@
+            </div>
+            <div class="table-header-container">
+                <table class="table table-bordered table-striped data-table">
+                    <tr class="hidden-table-row">
+                        <th class="th col1"></th>
+                        <th class="th col2"></th>
+                        <th class="th col3"></th>
+                        <th class="th col4"></th>
+                        <th class="th col5"></th>
+                        <th class="th col6"></th>
+                        <th class="th col7"></th>
+                        <th class="th col8"></th>
+                        <th class="th col9"></th>
+                        <th class="th col10"></th>
+                        <th class="th col11"></th>
+                        <th class="th col12"></th>
+                        <th class="th col13"></th>
+                        <th class="th col14"></th>
+                        <th class="th col15"></th>
+                        <th class="th col16"></th>
+                        <th class="th col17"></th>
+                        <th class="th col18"></th>
+                        <th class="th col19"></th>
+                        <th class="th col20"></th>
+                    </tr>
+                    <tr style="height:50px;">
+                        <th style="border-top:none; border-left:none; text-align:left;" colspan="8">
+                            <input class="form-control" ng-model="search" placeholder="filter Items"/>
+                        </th>
+                        <th colspan="4" dir-paginate="month in months | itemsPerPage : 3">
+                            <span style="text-align:center; width:100%; font-size:14px; padding-top:10px;"><h5>{{ month }}</h5></span>
+                        </th>
+                    </tr>
+                    <tr style="height:30px;">
+                        <th class="th col1"></th>
+                        <th class="th col2"></th>
+                        <th class="th col3"></th>
+                        <th class="th col4"></th>
+                        <th class="th col5"></th>
+                        <th class="th col6">M</th>
+                        <th class="th col7">I</th>
+                        <th class="th col8">P</th>
+
+                        <th class="th col9">Consumed</th>
+                        <th class="th col10">Forecast</th>
+                        <th class="th col11">Revised</th>
+                        <th class="th col12">Actual</th>
+
+                        <th class="th col13">Consumed</th>
+                        <th class="th col14">Forecast</th>
+                        <th class="th col15">Revised</th>
+                        <th class="th col16">Actual</th>
+
+                        <th class="th col17">Consumed</th>
+                        <th class="th col18">Forecast</th>
+                        <th class="th col19">Revised</th>
+                        <th class="th col20">Actual</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="data-section ng-cloak" ng-cloak>
+        <div class="row col-no-padding">
+
+            <table class="table table-bordered table-striped data-table">
+                <tr class="hidden-table-row">
+                    <th class="th col1"></th>
+                    <th class="th col2"></th>
+                    <th class="th col3"></th>
+                    <th class="th col4"></th>
+                    <th class="th col5"></th>
+                    <th class="th col6"></th>
+                    <th class="th col7"></th>
+                    <th class="th col8"></th>
+                    <th class="th col9"></th>
+                    <th class="th col10"></th>
+                    <th class="th col11"></th>
+                    <th class="th col12"></th>
+                    <th class="th col13"></th>
+                    <th class="th col14"></th>
+                    <th class="th col15"></th>
+                    <th class="th col16"></th>
+                    <th class="th col17"></th>
+                    <th class="th col18"></th>
+                    <th class="th col19"></th>
+                    <th class="th col20"></th>
+                </tr>
+                <tr ng-repeat="item in itemsList | filter: search">
+                    <td>{{item.ItemId}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="4" class="td-no-padding" style="border:none;" dir-paginate="month in item.ForecastData | itemsPerPage : 3">
+                        <table class="table table-bordered sub-table">
+                            <tr>
+                                <td style="width:25%">@*<input class="form-control" type="text" value=""/>*@&nbsp;</td>
+                                <td style="width:25%">@*<input class="form-control" type="text" value=""/>*@&nbsp;</td>
+                                <td style="width:25%">@*<input class="form-control" type="text" value=""/>*@&nbsp;</td>
+                                <td style="width:25%">@*<input class="form-control" type="text" value=""/>*@&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
+
+@section Styles{
+    @*Apply this style to this page only*@
+<link rel="stylesheet" type="text/css" href="~/Content/ToolStyles.css">
+    }
+
+
 

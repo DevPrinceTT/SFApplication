@@ -32,6 +32,7 @@ namespace SFApplication
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                  "~/Scripts/angular.js",
                  "~/Scripts/ngApp.js",
+                 "~/Scripts/dirPagination.js",
                  "~/ngControllers/*.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

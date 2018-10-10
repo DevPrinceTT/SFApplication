@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ForecastModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_AuditLogs">
+          <Key>
+            <PropertyRef Name="AuditLogId" />
+          </Key>
+          <Property Name="AuditLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuditLog" Type="xml" />
+        </EntityType>
+        <EntityType Name="tbl_ForecastItems">
+          <Key>
+            <PropertyRef Name="ForecastItemId" />
+          </Key>
+          <Property Name="ForecastItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForecastId" Type="int" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="ConsumedAvg" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="ForecastValue" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="RevisedForecastValueId" Type="int" />
+          <Property Name="Month" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_Forecasts">
+          <Key>
+            <PropertyRef Name="ForecastId" />
+          </Key>
+          <Property Name="ForecastId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_RevisedForecastHistory">
+          <Key>
+            <PropertyRef Name="RevisedForecastValueId" />
+          </Key>
+          <Property Name="RevisedForecastValueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForecastItemId" Type="int" />
+          <Property Name="RevisedValue" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="RevisedDate" Type="datetime" />
+          <Property Name="RevisedBy" Type="int" />
+          <Property Name="Details" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="ForecastModelStoreContainer">
+          <EntitySet Name="tbl_AuditLogs" EntityType="Self.tbl_AuditLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ForecastItems" EntityType="Self.tbl_ForecastItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Forecasts" EntityType="Self.tbl_Forecasts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_RevisedForecastHistory" EntityType="Self.tbl_RevisedForecastHistory" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ForecastModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_AuditLogs">
+          <Key>
+            <PropertyRef Name="AuditLogId" />
+          </Key>
+          <Property Name="AuditLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuditLog" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_ForecastItems">
+          <Key>
+            <PropertyRef Name="ForecastItemId" />
+          </Key>
+          <Property Name="ForecastItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForecastId" Type="Int32" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="ConsumedAvg" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="ForecastValue" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="RevisedForecastValueId" Type="Int32" />
+          <Property Name="Month" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_Forecasts">
+          <Key>
+            <PropertyRef Name="ForecastId" />
+          </Key>
+          <Property Name="ForecastId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_RevisedForecastHistory">
+          <Key>
+            <PropertyRef Name="RevisedForecastValueId" />
+          </Key>
+          <Property Name="RevisedForecastValueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForecastItemId" Type="Int32" />
+          <Property Name="RevisedValue" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="RevisedDate" Type="DateTime" Precision="3" />
+          <Property Name="RevisedBy" Type="Int32" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="ForecastDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_AuditLogs" EntityType="Self.tbl_AuditLogs" />
+          <EntitySet Name="tbl_ForecastItems" EntityType="Self.tbl_ForecastItems" />
+          <EntitySet Name="tbl_Forecasts" EntityType="Self.tbl_Forecasts" />
+          <EntitySet Name="tbl_RevisedForecastHistory" EntityType="Self.tbl_RevisedForecastHistory" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ForecastModelStoreContainer" CdmEntityContainer="ForecastDBEntities">
+          <EntitySetMapping Name="tbl_AuditLogs">
+            <EntityTypeMapping TypeName="ForecastModel.tbl_AuditLogs">
+              <MappingFragment StoreEntitySet="tbl_AuditLogs">
+                <ScalarProperty Name="AuditLogId" ColumnName="AuditLogId" />
+                <ScalarProperty Name="AuditLog" ColumnName="AuditLog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ForecastItems">
+            <EntityTypeMapping TypeName="ForecastModel.tbl_ForecastItems">
+              <MappingFragment StoreEntitySet="tbl_ForecastItems">
+                <ScalarProperty Name="ForecastItemId" ColumnName="ForecastItemId" />
+                <ScalarProperty Name="ForecastId" ColumnName="ForecastId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ConsumedAvg" ColumnName="ConsumedAvg" />
+                <ScalarProperty Name="ForecastValue" ColumnName="ForecastValue" />
+                <ScalarProperty Name="RevisedForecastValueId" ColumnName="RevisedForecastValueId" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Forecasts">
+            <EntityTypeMapping TypeName="ForecastModel.tbl_Forecasts">
+              <MappingFragment StoreEntitySet="tbl_Forecasts">
+                <ScalarProperty Name="ForecastId" ColumnName="ForecastId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_RevisedForecastHistory">
+            <EntityTypeMapping TypeName="ForecastModel.tbl_RevisedForecastHistory">
+              <MappingFragment StoreEntitySet="tbl_RevisedForecastHistory">
+                <ScalarProperty Name="RevisedForecastValueId" ColumnName="RevisedForecastValueId" />
+                <ScalarProperty Name="ForecastItemId" ColumnName="ForecastItemId" />
+                <ScalarProperty Name="RevisedValue" ColumnName="RevisedValue" />
+                <ScalarProperty Name="RevisedDate" ColumnName="RevisedDate" />
+                <ScalarProperty Name="RevisedBy" ColumnName="RevisedBy" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

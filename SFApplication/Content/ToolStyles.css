@@ -1,0 +1,194 @@
+﻿div#tool-container {
+    display: none;
+}
+
+    div#tool-container.show-tool {
+        display: block;
+    }
+
+.pagination {
+    padding-left: 40px !important;
+}
+
+div.data-section {
+    overflow-x:scroll;
+    height: calc(100vh - 130px);
+}
+
+.data-table {
+    max-width:calc(100vh - 17px);
+    border: none !important;
+    margin-top: -10px; /*used to hide first row*/
+}
+
+body {
+    overflow: hidden
+}
+
+div.tool-header {
+    text-align: right;
+    padding-right: 17px;
+    border-bottom: #ccc solid 1px;
+    min-height: 130px !important;
+}
+
+div.pagination-container {
+    min-height: 50px !important;
+}
+
+div.items-pane {
+    border-right: #ccc solid 1px;
+}
+
+div.table-header-container {
+    position: relative;
+    bottom: 0px;
+    height: 30px;
+}
+
+    div.table-header-container table {
+        height: 100%;
+    }
+
+table.sub-table {
+    border-top: none !important;
+    background-color: transparent !important;
+    margin-bottom: 0px !important;
+    width: calc(100% + 2px);
+    max-width: 110% !important;
+    margin-left: -1px;
+}
+
+
+table.sub-table:not(:last-child) {
+    border-bottom: none !important;
+}
+    table .sub-table td {
+        border-bottom: none !important;
+    }
+
+td.td-no-padding,
+th.td-no-padding,
+table.table-no-padding {
+    padding: 0px !important;
+}
+
+tr.hidden-table-row th {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+tr.hidden-table-row {
+    background-color: transparent !important;
+    border: none;
+}
+
+th.col1 {
+    width: 10%;
+    max-width: 10%;
+}
+
+th.col2 {
+    width: 9%;
+    max-width: 9%;
+}
+
+th.col3 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col4 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col5 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col6 {
+    width: 2%;
+    max-width: 2%;
+}
+
+th.col7 {
+    width: 2%;
+    max-width: 2%;
+}
+
+th.col8 {
+    width: 2%;
+    max-width: 2%;
+}
+
+th.col9 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col10 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col11 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col12 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col13 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col14 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col15 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col16 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col17 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col18 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col19 {
+    width: 5%;
+    max-width: 5%;
+}
+
+th.col20 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td, th {
+    font-size: 10px;
+    padding: 2px !important;
+    padding-top: 7px !important;
+}
+
+th {
+    text-align: center;
+}
