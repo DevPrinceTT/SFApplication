@@ -1,0 +1,311 @@
+﻿div#tool-container {
+    display: none;
+}
+
+div#tool-container.show-tool {
+    display: block;
+}
+
+div#spinner-container {
+    display: block;
+}
+
+div#spinner-container.hide-spinner {
+    display: none;
+}
+
+.pagination {
+    padding-left: 40px !important;
+}
+
+div.data-section {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100vh - 180px);
+}
+
+.data-table {
+    border: none !important;
+    /*margin-top: -10px; used to hide first row*/
+}
+
+body {
+    overflow: hidden
+}
+
+div.tool-header {
+    text-align: right;
+    padding-right: 17px;
+    /*border-bottom: #ccc solid 1px;*/
+    min-height: 130px !important;
+}
+
+div.pagination-container {
+    min-height: 50px !important;
+    max-height: 50px !important;
+}
+
+div.pagination-container ul,
+div .pagination-container ol {
+    margin: 10px 0;
+}
+
+div.items-pane {
+    border-right: #ccc solid 1px;
+}
+
+div.table-header-container {
+    position: relative;
+    bottom: 0px;
+    height: 30px;
+}
+
+div.table-header-container table {
+    height: 100%;
+}
+
+table.sub-table {
+    border-top: none !important;
+    border-bottom: none !important;
+    background-color: transparent !important;
+    margin-bottom: 0px !important;
+    width: calc(100% + 2px);
+    max-width: 110% !important;
+    margin-left: -1px;
+}
+
+.sub-table,
+.sub-table tr,
+.sub-table td,
+.sub-table th{
+    height:100%;
+}
+
+
+table.sub-table:not(:last-child) {
+    border-bottom: none !important;
+}
+
+table .sub-table td {
+    border-bottom: none !important;
+}
+
+td.td-no-padding,
+th.td-no-padding,
+table.table-no-padding {
+    padding: 0px !important;
+}
+
+tr.hidden-table-row th {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+tr.hidden-table-row {
+    background-color: transparent !important;
+    border: none;
+}
+
+th {
+    background-color: rgba(44, 71, 98, 0.60);
+    color: #fff;
+}
+
+td.col1,
+th.col1 {
+    width: 10%;
+    max-width: 10%;
+}
+
+td.col2,
+th.col2 {
+    width: 9%;
+    max-width: 9%;
+}
+
+td.col3,
+th.col3 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col4,
+th.col4 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col5,
+th.col5 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col6,
+th.col6 {
+    width: 2%;
+    max-width: 2%;
+}
+
+td.col7,
+th.col7 {
+    width: 2%;
+    max-width: 2%;
+}
+
+td.col8,
+th.col8 {
+    width: 2%;
+    max-width: 2%;
+}
+
+td.col9,
+th.col9 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col10,
+th.col10 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col11,
+th.col11 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col12,
+th.col12 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col13,
+th.col13 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col14,
+th.col14 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col15,
+th.col15 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col16,
+th.col16 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col17,
+th.col17 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col18,
+th.col18 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col19,
+th.col19 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td.col20,
+th.col20 {
+    width: 5%;
+    max-width: 5%;
+}
+
+td, th {
+    font-size: 10px;
+    padding: 2px !important;
+}
+
+th {
+    text-align: center;
+}
+
+input.search-bar {
+    width: 100%;
+    padding-right: 8px;
+    padding-left: 12px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 12px;
+    border: 1px #ccc solid;
+    border-radius:2px;
+}
+
+input.search-bar::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-style:italic;
+}
+
+input.search-bar::-moz-placeholder { /* Firefox 19+ */
+    font-style: italic;
+}
+
+input.search-bar:-ms-input-placeholder { /* IE 10+ */
+    font-style: italic;
+}
+
+input.search-bar:-moz-placeholder { /* Firefox 18- */
+    font-style: italic;
+}
+
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+    vertical-align:middle;
+}
+
+.data-section td{
+    height:35px;
+}
+
+
+td.left-pane-cell {
+    padding:8px;
+}
+
+td.right-pane-cell {
+    text-align:center;
+}
+
+td.editable span {
+    cursor: cell;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+td.editable input {
+    font-size: 11px;
+    padding: 2px;
+    text-align: center;
+    height: 30px;
+}
+
+td.editable.edit span,
+td.editable input {
+    display: none;
+}
+
+td.editable.edit input,
+td.editable:not(.edit) span {
+    display: inline-block;
+}

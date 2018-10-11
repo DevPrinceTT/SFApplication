@@ -60,14 +60,26 @@ div.top-buffer {
 
 
 /*custom nav bar styles*/
-.navbar{
-    padding-right:15px;
-    padding-left:15px;
+.navbar {
+    padding-right: 15px;
+    padding-left: 15px;
+    background-color: #2C4762;
+    border-color: #2C4762;
 }
 
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+
+ul.navbar-right  a.user-name{
+    cursor:default;
+}
+
+
 /*add padding for icons*/
-i.glyphicon{
-    padding-right:8px;
+i.glyphicon {
+    padding-right: 8px;
 }
 
 /*remove styles for unordered lists*/
@@ -79,4 +91,8 @@ ul.list-no-style{
 /*minimum width*/
 div.min-1366{
     min-width:1366px !important;
+}
+
+a.popup-open:hover{
+    text-decoration:none;
 }

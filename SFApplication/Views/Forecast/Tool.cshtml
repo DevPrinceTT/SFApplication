@@ -8,7 +8,7 @@
     <div class="row col-no-padding" style="">
         <div class="tool-header">
             <div class="pagination-container">
-                @*<dir-pagination-controls></dir-pagination-controls>*@
+                <dir-pagination-controls on-page-change="test()"></dir-pagination-controls>
             </div>
             <div class="table-header-container">
                 <table class="table table-bordered table-striped data-table">
@@ -35,19 +35,19 @@
                         <th class="th col20"></th>
                     </tr>
                     <tr style="height:50px;">
-                        <th style="border-top:none; border-left:none; text-align:left;" colspan="8">
-                            <input class="form-control" ng-model="search" placeholder="filter Items"/>
-                        </th>
-                        <th colspan="4" dir-paginate="month in months | itemsPerPage : 3">
+                        <td style="border-top:none; border-left:none; text-align:left;" colspan="8">
+                            <input class="search-bar" ng-model="search" placeholder="filter Items" />
+                        </td>
+                        <td colspan="4" dir-paginate="month in months | itemsPerPage : 3">
                             <span style="text-align:center; width:100%; font-size:14px; padding-top:10px;"><h5>{{ month }}</h5></span>
-                        </th>
+                        </td>
                     </tr>
                     <tr style="height:30px;">
                         <th class="th col1"></th>
                         <th class="th col2"></th>
                         <th class="th col3"></th>
                         <th class="th col4"></th>
-                        <th class="th col5"></th>
+                        <th class="th col5">Weight (g)</th>
                         <th class="th col6">M</th>
                         <th class="th col7">I</th>
                         <th class="th col8">P</th>
@@ -74,7 +74,7 @@
     <div class="data-section ng-cloak" ng-cloak>
         <div class="row col-no-padding">
 
-            <table class="table table-bordered table-striped data-table">
+            <table cellpadding="0" cellspacing="0" class="table table-bordered table-striped data-table">
                 <tr class="hidden-table-row">
                     <th class="th col1"></th>
                     <th class="th col2"></th>
@@ -97,25 +97,26 @@
                     <th class="th col19"></th>
                     <th class="th col20"></th>
                 </tr>
-                <tr ng-repeat="item in itemsList | filter: search">
-                    <td>{{item.ItemId}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td colspan="4" class="td-no-padding" style="border:none;" dir-paginate="month in item.ForecastData | itemsPerPage : 3">
-                        <table class="table table-bordered sub-table">
-                            <tr>
-                                <td style="width:25%">@*<input class="form-control" type="text" value=""/>*@&nbsp;</td>
-                                <td style="width:25%">@*<input class="form-control" type="text" value=""/>*@&nbsp;</td>
-                                <td style="width:25%">@*<input class="form-control" type="text" value=""/>*@&nbsp;</td>
-                                <td style="width:25%">@*<input class="form-control" type="text" value=""/>*@&nbsp;</td>
-                            </tr>
-                        </table>
+                <tr ng-repeat="item in itemsList | filter: { ItemId : search }">
+                    <td class="left-pane-cell"><span>{{item.ItemId}}</span></td>
+                    <td class="left-pane-cell">{{itemsList.length}}</td>
+                    <td class="left-pane-cell">{{ item.ForecastData.length }}</td>
+                    <td class="left-pane-cell"></td>
+                    <td class="left-pane-cell text-center">{{ item.Weight | number: 0 }}</td>
+                    <td class="left-pane-cell text-center">{{ item.M | number: 2 }}</td>
+                    <td class="left-pane-cell text-center">{{ item.I | number: 2 }}</td>
+                    <td class="left-pane-cell text-center">{{ item.P | number: 2 }}</td>
+                    <td class="right-pane-cell" dir-paginate-start="month in item.ForecastData | itemsPerPage : 3" emit-repeat-complete>
+                        <a href="#" target="popup" class="consumed popup-open" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.month }}">
+                            {{ month.consumption }}
+                        </a>
                     </td>
+                    <td class="right-pane-cell editable" unselectable="on">
+                        <span unselectable="on">{{ month.forecast }}</span>
+                        <input type="text" ng-model="month.forecast" class="form-control"/>
+                    </td>
+                    <td class="right-pane-cell">{{ month.revised }}</td>
+                    <td class="right-pane-cell" dir-paginate-end>{{ month.actual }}</td>
                 </tr>
             </table>
         </div>
@@ -124,8 +125,42 @@
 
 @section Styles{
     @*Apply this style to this page only*@
-<link rel="stylesheet" type="text/css" href="~/Content/ToolStyles.css">
-    }
+    <link rel="stylesheet" type="text/css" href="~/Content/tool-styles.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/cog-styles.css">
+}
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.popup-open.consumed').click(function (e) {
+                e.preventDefault();
+                window.open('/Forecast/Consumed/' + e.target.dataset.itemId + '?m=' + e.target.dataset.itemMonth, 'popup', 'width=600,height=600,scrollbars=no,resizable=no');
+            });
+
+            $("td.editable").on("dblclick", function (e) {
+                //close other cells
+                $("td.editable.edit").removeClass("edit");
+
+                $(e.target).addClass("edit");
+            });
+
+            //if span is clicked
+            $("td.editable span").on("dblclick", function (e) {
+                //close other cells
+                //$("td.editable.edit").removeClass("edit");
+
+                //make clicked cell editable
+                $(e.target.parentElement).toggleClass("edit");
+            });
+
+            //if span is clicked
+            $("td.editable input").on("blur", function (e) {
+                $(e.target.parentElement).toggleClass("edit");
+                //save record
+            });
+        });
+    </script>
+
+    }
 
 

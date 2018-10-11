@@ -10,8 +10,8 @@
     @RenderSection("Styles", required: false)
 </head>
 <body>
-    @*@if (Request.IsAuthenticated)
-        {*@
+    @if (WebSecurity.IsAuthenticated)
+        {
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container full-width">
             <div class="navbar-header">
@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    @* } *@
+    } 
     <div class="container body-content @ViewBag.FullWidth" ng-app="SFApplication">
         @RenderBody()
         @RenderSection("SPAViews", required: false)

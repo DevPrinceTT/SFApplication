@@ -1,58 +1,108 @@
-﻿@using SFApplication.Models
-@model LoginViewModel
+﻿@using SFApplication.ViewModels
+@model SFApplication.ViewModels.mdl_Login
 @{
     ViewBag.Title = "Log in";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+@using (Html.BeginForm("Login", "Account", null, FormMethod.Post, new { @class = "form-horizontal", role = "form", autocomplete = "off" }))
+{
+<div class="main-container">
+    <div class="container login-container">
+        <div class="row">
+            <div class="col-xs-6 left-pane">
+                <span class="brand">Sales<br />Forecast<br />Application</span>
+            </div>
+            <div class="col-xs-6 right-pane">
+                <h2>Welcome</h2>
+                <div class="pane-contents">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-10 input">
+                            @*@Html.LabelFor(m => m.Username)*@
+                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "Username" })
+                            @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-10 input">
+                            @*@Html.LabelFor(m => m.Password)*@
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                    <div class="row">
+                        <div class="col-md-10 input">
+                            <input type="submit" value="LOGIN" class="submit-btn btn btn-block btn-default" />
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
+            </div>
+        </div>
     </div>
 </div>
+}
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section Styles{
+
+    <style>
+        div.main-container  {
+            min-width:800px !important;
+        }
+
+        div.login-container {
+            height: calc(100vh - 100px);
+            display: grid;
+        }
+
+        div.login-container span.brand {
+            text-transform: uppercase;
+            font-size: 36px;
+            color: #264962;
+        }
+
+        div.login-container h2 {
+            color: #264962;
+            text-transform:uppercase;
+            font-size:18px;
+        }
+
+        div.left-pane {
+            text-align: right;
+            padding: 70px 50px 50px 70px;
+        }
+
+        div.right-pane {
+            /*margin-top: 8%;*/
+            padding: 20px 60px 50px 50px;
+            border-left: #264962 solid 1px;
+            vertical-align: middle;
+            min-height: 50%;
+        }
+
+        div.input {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        div.input label{
+            display:block;
+        }
+
+        input.submit-btn,
+        input[type=password],
+        input[type=text] {
+            border-radius: 50px;
+            color: #264962;
+        }
+        input.submit-btn {
+            background-color: #264962;
+            color:#fff;
+        }
+
+        div.login-container span.field-validation-error {
+            margin-left: 50px;
+        }
+    </style>
+
 }

@@ -1,100 +1,119 @@
 ﻿app.controller('ToolsController', function ($scope, $http) {
     $scope.itemsList = [];
-    for (var i = 1; i <= 1000; i++) {
+    for (var i = 1; i <= 50; i++) {
         $scope.itemsList.push(blankItem(i));
     }
 
+    $scope.test = function () {
+        $(document).ready(function () {
+            console.log($('.popup-open.consumed'));
+            $('.popup-open.consumed').click(function (e) {
+                e.preventDefault();
+                window.open('/Forecast/Consumed/' + e.target.dataset.itemId + '?m=' + e.target.dataset.itemMonth, 'popup', 'width=600,height=600,scrollbars=no,resizable=no');
+            });
+        });
+    };
+
     $scope.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    //$scope.openConsumption = function (e) {
+    //    console.log(e);
+    //    window.open('yourLink', 'popup', 'width=600,height=600,scrollbars=no,resizable=no');
+    //    return false;
+    //}
 
     function blankItem(id) {
         return {
-            ItemId: "item-" + id,
-            ItemName: null,
+            ItemId: id,
+            ItemName: "item - " + id,
+            Weight: (Math.random()*100),
+            M: (Math.random()*10),
+            I: (Math.random()*10),
+            P: (Math.random() * 10),
             ForecastData: [{
                 month: 1,
-                consumption: "item-" + id + "c1",
-                forecast: "item-" + id + "f1",
-                revised: "item-" + id + "r1",
-                actual: "item-" + id + "a1"
+                consumption: "I" + id + "-M1-con",
+                forecast: "I" + id + "-M1-fc",
+                revised: "I" + id + "-M1-rev",
+                actual: "I" + id + "-M1-act"
             },
             {
                 month: 2,
-                consumption: "item-" + id + "c2",
-                forecast: "item-" + id + "f2",
-                revised: "item-" + id + "r2",
-                actual: "item-" + id + "a2"
+                consumption: "I-" + id + "-M2-con",
+                forecast: "I" + id + "-M2-fc",
+                revised: "I" + id + "-M2-rev",
+                actual: "I" + id + "-M2-act"
             },
             {
                 month: 3,
-                consumption: "item-" + id + "c3",
-                forecast: "item-" + id + "f3",
-                revised: "item-" + id + "r3",
-                actual: "item-" + id + "a3"
+                consumption: "I" + id +"-M3-con",
+                forecast: "I" + id + "-M3-fc",
+                revised: "I" + id + "-M3-rev",
+                actual: "I" + id + "-M3-act"
             },
             {
                 month: 4,
-                consumption: "item-" + id + "c4",
-                forecast: "item-" + id + "f4",
-                revised: "item-" + id + "r4",
-                actual: "item-" + id + "a4"
+                consumption: "I" + id + "-M4-con",
+                forecast: "I" + id + "-M4-fc",
+                revised: "I" + id + "-M4-rev",
+                actual: "I" + id + "-M4-act"
             },
             {
                 month: 5,
-                consumption: "item-" + id + "c5",
-                forecast: "item-" + id + "f5",
-                revised: "item-" + id + "r5",
-                actual: "item-" + id + "a5"
+                consumption: "I" + id + "-M5-con",
+                forecast: "I" + id + "-M5-fc",
+                revised: "I" + id + "-M5-rev",
+                actual: "I" + id + "-M5-act"
             },
             {
                 month: 6,
-                consumption: "item-" + id + "c6",
-                forecast: "item-" + id + "f6",
-                revised: "item-" + id + "r6",
-                actual: "item-" + id + "a6"
+                consumption: "I" + id + "-M6-con",
+                forecast: "I" + id + "-M6-fc",
+                revised: "I" + id + "-M6-rev",
+                actual: "I" + id + "-M6-act"
             },
             {
                 month: 7,
-                consumption: "item-" + id + "c7",
-                forecast: "item-" + id + "f7",
-                revised: "item-" + id +  "r7",
-                actual: "item-" + id + "a7"
+                consumption: "I" + id + "-M7-con",
+                forecast: "I" + id + "-M7-fc",
+                revised: "I" + id + "-M7-rev",
+                actual: "I" + id + "-M7-act"
             },
             {
                 month: 8,
-                consumption: "item-" + id +  "c8",
-                forecast: "item-" + id + "f8",
-                revised: "item-" + id + "r8",
-                actual: "item-" + id + "a8"
+                consumption: "I" + id + "-M8-con",
+                forecast: "I" + id + "-M8-fc",
+                revised: "I" + id + "-M8-rev",
+                actual: "I" + id + "-M8-act"
             },
             {
                 month: 9,
-                consumption: "item-" + id + "c9",
-                forecast: "item-" + id +  "f9",
-                revised: "item-" + id + "r9",
-                actual: "item-" + id + "a9"
+                consumption: "I" + id + "-M9-con",
+                forecast: "I" + id + "-M9-fc",
+                revised: "I" + id + "-M9-rev",
+                actual: "I" + id + "-M9-act"
             },
             {
                 month: 10,
-                consumption: "item-" + id + "c10",
-                forecast: "item-" + id +"f10",
-                revised: "item-" + id +  "r10",
-                actual: "item-" + id + "a10"
+                consumption: "I" + id + "-M10-con",
+                forecast: "I" + id + "-M10-fc",
+                revised: "I" + id + "-M10-rev",
+                actual: "I" + id + "-M10-act"
             },
             {
                 month: 11,
-                consumption: "item-" + id +  "c11",
-                forecast: "item-" + id + "f11",
-                revised: "item-" + id + "r11",
-                actual: "item-" + id + "a11"
+                consumption: "I" + id + "-M11-con",
+                forecast: "I" + id + "-M11-fc",
+                revised: "I" + id + "-M11-rev",
+                actual: "I" + id + "-M11-act"
             },
             {
                 month: 12,
-                consumption: "item-" + id + "c12",
-                forecast: "item-" + id + "f12",
-                revised: "item-" + id + "r12",
-                actual: "item-" + id + "a12"
-            }
-            ]
+                consumption: "I" + id + "-M12-con",
+                forecast: "I" + id + "-M12-fc",
+                revised: "I" + id + "-M12-rev",
+                actual: "I" + id + "-M12-act"
+            }]
         };
     };
 });
