@@ -8,7 +8,13 @@
     <div class="row col-no-padding" style="">
         <div class="tool-header">
             <div class="pagination-container">
-                <dir-pagination-controls on-page-change="test()"></dir-pagination-controls>
+                <div class="row">
+                    <div class="col-md-offset-6 col-md-3 text-right">
+                    </div>
+                    <div class="col-md-3">
+                        <dir-pagination-controls on-page-change="refreshPopups()"></dir-pagination-controls>
+                    </div>
+                </div>
             </div>
             <div class="table-header-container">
                 <table class="table table-bordered table-striped data-table">
@@ -27,45 +33,45 @@
                         <th class="th col12"></th>
                         <th class="th col13"></th>
                         <th class="th col14"></th>
-                        <th class="th col15"></th>
+                        @*<th class="th col15"></th>
                         <th class="th col16"></th>
                         <th class="th col17"></th>
                         <th class="th col18"></th>
                         <th class="th col19"></th>
-                        <th class="th col20"></th>
+                        <th class="th col20"></th>*@
                     </tr>
                     <tr style="height:50px;">
                         <td style="border-top:none; border-left:none; text-align:left;" colspan="8">
                             <input class="search-bar" ng-model="search" placeholder="filter Items" />
                         </td>
-                        <td colspan="4" dir-paginate="month in months | itemsPerPage : 3">
+                        <td colspan="2" dir-paginate="month in months | itemsPerPage : 3">
                             <span style="text-align:center; width:100%; font-size:14px; padding-top:10px;"><h5>{{ month }}</h5></span>
                         </td>
                     </tr>
                     <tr style="height:30px;">
-                        <th class="th col1"></th>
-                        <th class="th col2"></th>
-                        <th class="th col3"></th>
-                        <th class="th col4"></th>
-                        <th class="th col5">Weight (g)</th>
+                        <th class="th col1">Supplier Code</th>
+                        <th class="th col2">FLD Item Code</th>
+                        <th class="th col3">Description</th>
+                        <th class="th col4">Weight</th>
+                        <th class="th col5">Unit</th>
                         <th class="th col6">M</th>
                         <th class="th col7">I</th>
                         <th class="th col8">P</th>
 
-                        <th class="th col9">Consumed</th>
+                        @*<th class="th col9">Consumed</th>*@
                         <th class="th col10">Forecast</th>
                         <th class="th col11">Revised</th>
-                        <th class="th col12">Actual</th>
+                        @*<th class="th col12">Actual</th>*@
 
-                        <th class="th col13">Consumed</th>
+                        @*<th class="th col13">Consumed</th>*@
                         <th class="th col14">Forecast</th>
                         <th class="th col15">Revised</th>
-                        <th class="th col16">Actual</th>
+                        @*<th class="th col16">Actual</th>*@
 
-                        <th class="th col17">Consumed</th>
+                        @*<th class="th col17">Consumed</th>*@
                         <th class="th col18">Forecast</th>
                         <th class="th col19">Revised</th>
-                        <th class="th col20">Actual</th>
+                        @*<th class="th col20">Actual</th>*@
                     </tr>
                 </table>
             </div>
@@ -90,33 +96,37 @@
                     <th class="th col12"></th>
                     <th class="th col13"></th>
                     <th class="th col14"></th>
-                    <th class="th col15"></th>
+                    @*<th class="th col15"></th>
                     <th class="th col16"></th>
                     <th class="th col17"></th>
                     <th class="th col18"></th>
                     <th class="th col19"></th>
-                    <th class="th col20"></th>
+                    <th class="th col20"></th>*@
                 </tr>
-                <tr ng-repeat="item in itemsList | filter: { ItemId : search }">
-                    <td class="left-pane-cell"><span>{{item.ItemId}}</span></td>
-                    <td class="left-pane-cell">{{itemsList.length}}</td>
-                    <td class="left-pane-cell">{{ item.ForecastData.length }}</td>
-                    <td class="left-pane-cell"></td>
+                <tr ng-repeat="item in itemsList | filter: { ItemName : search }">
+                    <td class="left-pane-cell"><span></span></td>
+                    <td class="left-pane-cell"><span>{{ item.ItemName }}</span></td>
+                    <td class="left-pane-cell"><span>{{ item.ItemDesc }}</span></td>
                     <td class="left-pane-cell text-center">{{ item.Weight | number: 0 }}</td>
-                    <td class="left-pane-cell text-center">{{ item.M | number: 2 }}</td>
-                    <td class="left-pane-cell text-center">{{ item.I | number: 2 }}</td>
-                    <td class="left-pane-cell text-center">{{ item.P | number: 2 }}</td>
-                    <td class="right-pane-cell" dir-paginate-start="month in item.ForecastData | itemsPerPage : 3" emit-repeat-complete>
+                    <td class="left-pane-cell text-center"></td>
+                    <td class="left-pane-cell text-center">{{ item.M | number: 0 }}</td>
+                    <td class="left-pane-cell text-center">{{ item.I | number: 0 }}</td>
+                    <td class="left-pane-cell text-center">{{ item.P | number: 0 }}</td>
+                    @*<td class="right-pane-cell" dir-paginate-start="month in item.ForecastData | itemsPerPage : 3" emit-repeat-complete>
                         <a href="#" target="popup" class="consumed popup-open" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.month }}">
                             {{ month.consumption }}
                         </a>
+                    </td>*@
+                    <td class="right-pane-cell editable" unselectable="on" dir-paginate-start="month in item.ForecastData | itemsPerPage : 3" 
+                         emit-repeat-complete>
+                        <i class="glyphicon glyphicon-pencil edit-icon" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.month }}"></i>
+                        <span unselectable="on" >{{ month.forecast }}</span>
                     </td>
-                    <td class="right-pane-cell editable" unselectable="on">
-                        <span unselectable="on">{{ month.forecast }}</span>
-                        <input type="text" ng-model="month.forecast" class="form-control"/>
+                    <td class="right-pane-cell editable" dir-paginate-end>
+                        <i class="glyphicon glyphicon-pencil edit-icon" data-item-revised="1" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.month }}"></i>
+                        <span unselectable="on">{{ month.revised }}</span>
                     </td>
-                    <td class="right-pane-cell">{{ month.revised }}</td>
-                    <td class="right-pane-cell" dir-paginate-end>{{ month.actual }}</td>
+                    @*<td class="right-pane-cell" dir-paginate-end>{{ month.actual }}</td>*@
                 </tr>
             </table>
         </div>
@@ -132,31 +142,30 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $('.popup-open.consumed').click(function (e) {
+            //if pen is clicked
+            $("td.editable i.edit-icon").on("click", function (e) {
                 e.preventDefault();
-                window.open('/Forecast/Consumed/' + e.target.dataset.itemId + '?m=' + e.target.dataset.itemMonth, 'popup', 'width=600,height=600,scrollbars=no,resizable=no');
-            });
+                var url = '/Forecast/Consumed/' + e.target.dataset.itemId + '?m=' + String(e.target.dataset.itemMonth);
+                if (e.target.dataset.hasOwnProperty("itemRevised")) {
+                    if (e.target.dataset.itemRevised != null) {
+                        url += '&r=' + e.target.dataset.itemRevised;
+                    }
 
-            $("td.editable").on("dblclick", function (e) {
-                //close other cells
-                $("td.editable.edit").removeClass("edit");
+                }
+                // Fixes dual-screen position                         Most browsers      Firefox
+                var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
+                var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
 
-                $(e.target).addClass("edit");
-            });
+                var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+                var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
 
-            //if span is clicked
-            $("td.editable span").on("dblclick", function (e) {
-                //close other cells
-                //$("td.editable.edit").removeClass("edit");
+                var left = ((width / 2) - (1000 / 2)) + dualScreenLeft;
+                var top = ((height / 2) - (400 / 2)) + dualScreenTop;
 
-                //make clicked cell editable
-                $(e.target.parentElement).toggleClass("edit");
-            });
-
-            //if span is clicked
-            $("td.editable input").on("blur", function (e) {
-                $(e.target.parentElement).toggleClass("edit");
-                //save record
+                window.open(url, 'popup', 'width=900,height=500,left=' + left + ',top=' + top + ', scrollbars=no,resizable=no');
+                window.somefunction = function () {
+                    console.log("test");
+                }
             });
         });
     </script>

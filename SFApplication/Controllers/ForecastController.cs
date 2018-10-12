@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMatrix.WebData;
 
 namespace SFApplication.Controllers
 {
@@ -38,6 +39,14 @@ namespace SFApplication.Controllers
         // GET: Forecast/Tool/2018
         public ActionResult Tool(int id = 0)
         {
+            if (!WebSecurity.IsAuthenticated)
+            {
+                return RedirectToAction("Logout", "Account");
+            }
+
+            //WebSecurity.RequireRoles("Test");
+
+
             if (id < 1)
             {
                 return RedirectToAction("Index");

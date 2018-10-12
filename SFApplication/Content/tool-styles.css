@@ -119,120 +119,120 @@ th.col1 {
 
 td.col2,
 th.col2 {
-    width: 9%;
-    max-width: 9%;
+    width: 10%;
+    max-width: 10%;
 }
 
 td.col3,
 th.col3 {
-    width: 5%;
-    max-width: 5%;
+    width: 15%;
+    max-width: 15%;
 }
 
 td.col4,
 th.col4 {
-    width: 5%;
-    max-width: 5%;
+    width: 4%;
+    max-width: 4%;
 }
 
 td.col5,
 th.col5 {
-    width: 5%;
-    max-width: 5%;
+    width: 4%;
+    max-width: 4%;
 }
 
 td.col6,
 th.col6 {
-    width: 2%;
-    max-width: 2%;
+    width: 3%;
+    max-width: 3%;
 }
 
 td.col7,
 th.col7 {
-    width: 2%;
-    max-width: 2%;
+    width: 3%;
+    max-width: 3%;
 }
 
 td.col8,
 th.col8 {
-    width: 2%;
-    max-width: 2%;
+    width: 3%;
+    max-width: 3%;
 }
 
 td.col9,
 th.col9 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col10,
 th.col10 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col11,
 th.col11 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col12,
 th.col12 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col13,
 th.col13 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col14,
 th.col14 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col15,
 th.col15 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col16,
 th.col16 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col17,
 th.col17 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col18,
 th.col18 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col19,
 th.col19 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col20,
 th.col20 {
-    width: 5%;
-    max-width: 5%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td, th {
-    font-size: 10px;
+    font-size: 12px;
     padding: 2px !important;
 }
 
@@ -281,31 +281,27 @@ td.left-pane-cell {
     padding:8px;
 }
 
+td.left-pane-cell span {
+    padding:8px;
+}
+
 td.right-pane-cell {
-    text-align:center;
+    text-align: right;
+    padding-right: 10px !important;
 }
 
 td.editable span {
-    cursor: cell;
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
 }
 
-td.editable input {
-    font-size: 11px;
-    padding: 2px;
-    text-align: center;
-    height: 30px;
+td.editable i.edit-icon {
+    display:none;
+    color:#337ab7;
+    cursor:pointer;
 }
-
-td.editable.edit span,
-td.editable input {
-    display: none;
-}
-
-td.editable.edit input,
-td.editable:not(.edit) span {
-    display: inline-block;
+td.editable:hover i.edit-icon {
+    display:inline-block;
 }

@@ -17,7 +17,8 @@ namespace SFApplication.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            return View();
+            return RedirectToAction("Index", "Forecast");
+            //return View();
         }
     }
 }
