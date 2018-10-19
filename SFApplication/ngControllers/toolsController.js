@@ -1,4 +1,5 @@
 ﻿app.controller('ToolsController', function ($scope, $http) {
+
     $scope.itemsList = [];
     for (var i = 1; i <= 50; i++) {
         $scope.itemsList.push(blankItem(i));
@@ -131,4 +132,28 @@
             }]
         };
     };
+
+    /** CONSUMER POPUP **/
+
+    $scope.closePopup = function () {
+        var user = confirm("Are you sure you want to close this window?");
+        if (user) {
+            window.close();
+        }
+    };
+
+    $scope.saveDetails = function () {
+        $scope.details = { 'test': 'test data' };
+
+        $http({
+            method: "POST",
+            url: "/Forecast/Details",
+            data: {
+                'collection': JSON.stringify($scope.details)
+            }
+        }).then(function (response) {
+            console.log(response);
+        });
+    };
+
 });

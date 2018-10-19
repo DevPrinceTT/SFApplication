@@ -8,9 +8,12 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("Styles", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    @if (WebSecurity.IsAuthenticated)
+    @if (WebSecurity.IsAuthenticated || !(ViewBag.HideLayout ?? true))
         {
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container full-width">
@@ -37,9 +40,33 @@
         @RenderSection("SPAViews", required: false)
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/angular")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("Scripts", required: false)
+    <script>
+        function popupwindow(url,h, w, callback) {
+            if (h == null) {
+                h = 500;
+            }
+            if (w == null) {
+                w = 1000;
+            }
+
+            // Fixes dual-screen position                         Most browsers      Firefox
+            var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
+            var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
+
+            var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+            var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+            var left = ((width / 2) - (1000 / 2)) + dualScreenLeft;
+            var top = ((height / 2) - (400 / 2)) + dualScreenTop;
+
+            window.open(url, 'popup', 'resizable=0,width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ', scrollbars=no,resizable=no');
+
+            if (typeof (callback) != undefined) {
+                window.somefunction = callback;
+            }
+            
+        }
+    </script>
 </body>
 </html>

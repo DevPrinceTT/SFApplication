@@ -26,8 +26,16 @@ namespace SFApplication.Models
         }
     
         public virtual DbSet<tbl_AuditLogs> tbl_AuditLogs { get; set; }
+        public virtual DbSet<tbl_ForecastDetails> tbl_ForecastDetails { get; set; }
         public virtual DbSet<tbl_ForecastItems> tbl_ForecastItems { get; set; }
+        public virtual DbSet<tbl_ForecastRevisions> tbl_ForecastRevisions { get; set; }
         public virtual DbSet<tbl_Forecasts> tbl_Forecasts { get; set; }
-        public virtual DbSet<tbl_RevisedForecastHistory> tbl_RevisedForecastHistory { get; set; }
+        public virtual DbSet<tbl_GroupRoles> tbl_GroupRoles { get; set; }
+        public virtual DbSet<tbl_UserGroups> tbl_UserGroups { get; set; }
+        public virtual DbSet<tbl_Users> tbl_Users { get; set; }
+        public virtual DbSet<tbl_UsersInGroups> tbl_UsersInGroups { get; set; }
+        public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
+        public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
+        public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
     }
 }

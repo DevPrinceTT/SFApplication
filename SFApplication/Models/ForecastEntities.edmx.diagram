@@ -5,10 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7a1f9b94f497408bbd8dc52f5ca6fc23" Name="Diagram1" ShowGrid="true">
-        <EntityTypeShape EntityType="ForecastModel.tbl_AuditLogs" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ForecastModel.tbl_ForecastItems" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ForecastModel.tbl_Forecasts" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ForecastModel.tbl_RevisedForecastHistory" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ForecastModel.tbl_AuditLogs" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ForecastModel.tbl_ForecastDetails" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ForecastModel.tbl_ForecastItems" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ForecastModel.tbl_ForecastRevisions" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ForecastModel.tbl_Forecasts" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ForecastModel.tbl_GroupRoles" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="ForecastModel.tbl_UserGroups" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ForecastModel.tbl_Users" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="ForecastModel.tbl_UsersInGroups" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="ForecastModel.webpages_Membership" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="ForecastModel.webpages_OAuthMembership" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ForecastModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="0.875" />
+        <AssociationConnector Association="ForecastModel.webpages_UsersInRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

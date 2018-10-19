@@ -262,6 +262,7 @@
     </Compile>
     <Compile Include="Extensions\UserRoles.cs" />
     <Compile Include="Helpers\AccountHelper.cs" />
+    <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Models\ForecastEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -280,21 +281,49 @@
     <Compile Include="Models\tbl_AuditLogs.cs">
       <DependentUpon>ForecastEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbl_ForecastDetails.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_ForecastItems.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ForecastRevisions.cs">
       <DependentUpon>ForecastEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_Forecasts.cs">
       <DependentUpon>ForecastEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbl_RevisedForecastHistory.cs">
+    <Compile Include="Models\tbl_GroupRoles.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_UserGroups.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_Users.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_UsersInGroups.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\webpages_Membership.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\webpages_OAuthMembership.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\webpages_Roles.cs">
       <DependentUpon>ForecastEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\IdentityModels.cs" />
+    <Compile Include="ViewModels\mdl_Forecast.cs" />
+    <Compile Include="ViewModels\mdl_ForecastDetails.cs" />
+    <Compile Include="ViewModels\mdl_ForecastRevision.cs" />
     <Compile Include="ViewModels\mdl_Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\obj_ServerResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -399,8 +428,9 @@
     <Content Include="Scripts\knockout.validation.min.js.map" />
     <Content Include="Views\Forecast\Index.cshtml" />
     <Content Include="Views\Forecast\Tool.cshtml" />
-    <Content Include="Views\Forecast\Tool2.cshtml" />
-    <Content Include="Views\Forecast\Consumed.cshtml" />
+    <Content Include="Views\Forecast\Details.cshtml" />
+    <Content Include="Views\Forecast\CreateForecast.cshtml" />
+    <Content Include="Views\Shared\_PopupLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

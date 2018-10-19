@@ -3,13 +3,16 @@
     ViewBag.Title = "Index";
 }
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12">
+    <div class="row top-buffer">
+        <div class="col-xs-10">
             <h2>Sales Forecast</h2>
-            <hr />
+        </div>
+        <div class="col-xs-2 text-right">
+            <a href="#" class="dead btn btn-primary body-header-button" onclick="popupwindow('/Forecast/CreateForecast/',400,800)">New</a>
         </div>
     </div>
-    <div class="row">
+    <hr />
+    <div class="row top-buffer">
         <div class="col-sm-7 col-xs-12">
             
             @*<div class="col-xs-3 col-xs-offset-9 col-no-padding" style="margin-bottom:10px;">

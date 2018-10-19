@@ -22,6 +22,7 @@ div.data-section {
     overflow-x: hidden;
     overflow-y: scroll;
     height: calc(100vh - 180px);
+    padding-top:10px;
 }
 
 .data-table {
@@ -287,6 +288,7 @@ td.left-pane-cell span {
 
 td.right-pane-cell {
     text-align: right;
+    max-width:10px;
     padding-right: 10px !important;
 }
 

@@ -12,13 +12,10 @@ namespace SFApplication.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_RevisedForecastHistory
+    public partial class webpages_OAuthMembership
     {
-        public int RevisedForecastValueId { get; set; }
-        public Nullable<int> ForecastItemId { get; set; }
-        public Nullable<decimal> RevisedValue { get; set; }
-        public Nullable<System.DateTime> RevisedDate { get; set; }
-        public Nullable<int> RevisedBy { get; set; }
-        public string Details { get; set; }
+        public string Provider { get; set; }
+        public string ProviderUserId { get; set; }
+        public int UserId { get; set; }
     }
 }
