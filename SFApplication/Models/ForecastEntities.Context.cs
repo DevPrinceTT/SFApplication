@@ -12,6 +12,8 @@ namespace SFApplication.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ForecastDBEntities : DbContext
     {
@@ -37,5 +39,11 @@ namespace SFApplication.Models
         public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
         public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
         public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public virtual DbSet<gp_InventoryItems> gp_InventoryItems { get; set; }
+    
+        public virtual ObjectResult<AAA2018_SYNC_GP_ITEMS_Result> AAA2018_SYNC_GP_ITEMS()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AAA2018_SYNC_GP_ITEMS_Result>("AAA2018_SYNC_GP_ITEMS");
+        }
     }
 }

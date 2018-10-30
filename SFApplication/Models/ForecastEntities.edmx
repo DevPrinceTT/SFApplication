@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ForecastModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="gp_InventoryItems">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ITEMNMBR" Type="nvarchar" MaxLength="50" />
+          <Property Name="ITEMDESC" Type="nvarchar" MaxLength="101" />
+          <Property Name="ITEMSHWT" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="VENDORID" Type="nvarchar" MaxLength="50" />
+          <Property Name="VNDITNUM" Type="nvarchar" MaxLength="101" />
+          <Property Name="VNDITDSC" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="SyncDate" Type="datetime" />
+          <Property Name="CustomItem" Type="bit" />
+          <Property Name="Synced" Type="bit" />
+        </EntityType>
         <EntityType Name="tbl_AuditLogs">
           <Key>
             <PropertyRef Name="AuditLogId" />
@@ -150,7 +166,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AAA2018_SYNC_GP_ITEMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ForecastModelStoreContainer">
+          <EntitySet Name="gp_InventoryItems" EntityType="Self.gp_InventoryItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_AuditLogs" EntityType="Self.tbl_AuditLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ForecastDetails" EntityType="Self.tbl_ForecastDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ForecastItems" EntityType="Self.tbl_ForecastItems" Schema="dbo" store:Type="Tables" />
@@ -194,6 +212,8 @@
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="tbl_Users" EntitySet="tbl_Users" />
           </AssociationSet>
+          <EntitySet Name="gp_InventoryItems" EntityType="ForecastModel.gp_InventoryItems" />
+          <FunctionImport Name="AAA2018_SYNC_GP_ITEMS" ReturnType="Collection(ForecastModel.AAA2018_SYNC_GP_ITEMS_Result)" />
         </EntityContainer>
         <EntityType Name="tbl_AuditLogs">
           <Key>
@@ -314,6 +334,140 @@
           <End Type="ForecastModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
           <End Type="ForecastModel.tbl_Users" Role="tbl_Users" Multiplicity="*" />
         </Association>
+        <EntityType Name="gp_InventoryItems">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ITEMNMBR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ITEMDESC" Type="String" MaxLength="101" FixedLength="false" Unicode="true" />
+          <Property Name="ITEMSHWT" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="VENDORID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VNDITNUM" Type="String" MaxLength="101" FixedLength="false" Unicode="true" />
+          <Property Name="VNDITDSC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="SyncDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomItem" Type="Boolean" />
+          <Property Name="Synced" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="AAA2018_SYNC_GP_ITEMS_Result">
+          <Property Type="String" Name="ITEMNMBR" Nullable="false" MaxLength="31" />
+          <Property Type="String" Name="ITEMDESC" Nullable="false" MaxLength="101" />
+          <Property Type="Decimal" Name="NOTEINDX" Nullable="false" Precision="19" Scale="5" />
+          <Property Type="String" Name="ITMSHNAM" Nullable="false" MaxLength="15" />
+          <Property Type="Int16" Name="ITEMTYPE" Nullable="false" />
+          <Property Type="String" Name="ITMGEDSC" Nullable="false" MaxLength="11" />
+          <Property Type="Decimal" Name="STNDCOST" Nullable="false" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="CURRCOST" Nullable="false" Precision="19" Scale="5" />
+          <Property Type="Int32" Name="ITEMSHWT" Nullable="false" />
+          <Property Type="Int16" Name="DECPLQTY" Nullable="false" />
+          <Property Type="Int16" Name="DECPLCUR" Nullable="false" />
+          <Property Type="String" Name="ITMTSHID" Nullable="false" MaxLength="15" />
+          <Property Type="Int16" Name="TAXOPTNS" Nullable="false" />
+          <Property Type="Int32" Name="IVIVINDX" Nullable="false" />
+          <Property Type="Int32" Name="IVIVOFIX" Nullable="false" />
+          <Property Type="Int32" Name="IVCOGSIX" Nullable="false" />
+          <Property Type="Int32" Name="IVSLSIDX" Nullable="false" />
+          <Property Type="Int32" Name="IVSLDSIX" Nullable="false" />
+          <Property Type="Int32" Name="IVSLRNIX" Nullable="false" />
+          <Property Type="Int32" Name="IVINUSIX" Nullable="false" />
+          <Property Type="Int32" Name="IVINSVIX" Nullable="false" />
+          <Property Type="Int32" Name="IVDMGIDX" Nullable="false" />
+          <Property Type="Int32" Name="IVVARIDX" Nullable="false" />
+          <Property Type="Int32" Name="DPSHPIDX" Nullable="false" />
+          <Property Type="Int32" Name="PURPVIDX" Nullable="false" />
+          <Property Type="Int32" Name="UPPVIDX" Nullable="false" />
+          <Property Type="Int32" Name="IVRETIDX" Nullable="false" />
+          <Property Type="Int32" Name="ASMVRIDX" Nullable="false" />
+          <Property Type="String" Name="ITMCLSCD" Nullable="false" MaxLength="11" />
+          <Property Type="Int16" Name="ITMTRKOP" Nullable="false" />
+          <Property Type="String" Name="LOTTYPE" Nullable="false" MaxLength="11" />
+          <Property Type="Byte" Name="KPERHIST" Nullable="false" />
+          <Property Type="Byte" Name="KPTRXHST" Nullable="false" />
+          <Property Type="Byte" Name="KPCALHST" Nullable="false" />
+          <Property Type="Byte" Name="KPDSTHST" Nullable="false" />
+          <Property Type="Byte" Name="ALWBKORD" Nullable="false" />
+          <Property Type="Int16" Name="VCTNMTHD" Nullable="false" />
+          <Property Type="String" Name="UOMSCHDL" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="ALTITEM1" Nullable="false" MaxLength="31" />
+          <Property Type="String" Name="ALTITEM2" Nullable="false" MaxLength="31" />
+          <Property Type="String" Name="USCATVLS_1" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="USCATVLS_2" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="USCATVLS_3" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="USCATVLS_4" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="USCATVLS_5" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="USCATVLS_6" Nullable="false" MaxLength="11" />
+          <Property Type="Int16" Name="MSTRCDTY" Nullable="false" />
+          <Property Type="DateTime" Name="MODIFDT" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="CREATDDT" Nullable="false" Precision="23" />
+          <Property Type="Int16" Name="WRNTYDYS" Nullable="false" />
+          <Property Type="String" Name="PRCLEVEL" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="LOCNCODE" Nullable="false" MaxLength="11" />
+          <Property Type="Int32" Name="PINFLIDX" Nullable="false" />
+          <Property Type="Int32" Name="PURMCIDX" Nullable="false" />
+          <Property Type="Int32" Name="IVINFIDX" Nullable="false" />
+          <Property Type="Int32" Name="INVMCIDX" Nullable="false" />
+          <Property Type="Int32" Name="CGSINFLX" Nullable="false" />
+          <Property Type="Int32" Name="CGSMCIDX" Nullable="false" />
+          <Property Type="String" Name="ITEMCODE" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="TCC" Nullable="false" MaxLength="31" />
+          <Property Type="String" Name="PriceGroup" Nullable="false" MaxLength="11" />
+          <Property Type="Int16" Name="PRICMTHD" Nullable="false" />
+          <Property Type="String" Name="PRCHSUOM" Nullable="false" MaxLength="9" />
+          <Property Type="String" Name="SELNGUOM" Nullable="false" MaxLength="9" />
+          <Property Type="Int16" Name="KTACCTSR" Nullable="false" />
+          <Property Type="String" Name="LASTGENSN" Nullable="false" MaxLength="21" />
+          <Property Type="Int16" Name="ABCCODE" Nullable="false" />
+          <Property Type="Byte" Name="Revalue_Inventory" Nullable="false" />
+          <Property Type="Int32" Name="Tolerance_Percentage" Nullable="false" />
+          <Property Type="String" Name="Purchase_Item_Tax_Schedu" Nullable="false" MaxLength="15" />
+          <Property Type="Int16" Name="Purchase_Tax_Options" Nullable="false" />
+          <Property Type="Int16" Name="ITMPLNNNGTYP" Nullable="false" />
+          <Property Type="Int16" Name="STTSTCLVLPRCNTG" Nullable="false" />
+          <Property Type="String" Name="CNTRYORGN" Nullable="false" MaxLength="7" />
+          <Property Type="Byte" Name="INACTIVE" Nullable="false" />
+          <Property Type="Int16" Name="MINSHELF1" Nullable="false" />
+          <Property Type="Int16" Name="MINSHELF2" Nullable="false" />
+          <Property Type="Byte" Name="INCLUDEINDP" Nullable="false" />
+          <Property Type="Byte" Name="LOTEXPWARN" Nullable="false" />
+          <Property Type="Int16" Name="LOTEXPWARNDAYS" Nullable="false" />
+          <Property Type="String" Name="LASTGENLOT" Nullable="false" MaxLength="21" />
+          <Property Type="Decimal" Name="Lot_Split_Quantity" Nullable="false" Precision="19" Scale="5" />
+          <Property Type="Byte" Name="UseQtyOverageTolerance" Nullable="false" />
+          <Property Type="Byte" Name="UseQtyShortageTolerance" Nullable="false" />
+          <Property Type="Int32" Name="QtyOverTolerancePercent" Nullable="false" />
+          <Property Type="Int32" Name="QtyShortTolerancePercent" Nullable="false" />
+          <Property Type="Int32" Name="IVSCRVIX" Nullable="false" />
+          <Property Type="DateTime" Name="DEX_ROW_TS" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="DEX_ROW_ID" Nullable="false" />
+          <Property Type="String" Name="ITEMNMBR1" Nullable="true" MaxLength="31" />
+          <Property Type="String" Name="VENDORID" Nullable="true" MaxLength="15" />
+          <Property Type="Int16" Name="ITMVNDTY" Nullable="true" />
+          <Property Type="String" Name="VNDITNUM" Nullable="true" MaxLength="31" />
+          <Property Type="Decimal" Name="QTYRQSTN" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="QTYONORD" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="QTY_Drop_Shipped" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="DateTime" Name="LSTORDDT" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="LSORDQTY" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="LRCPTQTY" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="DateTime" Name="LSRCPTDT" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="LRCPTCST" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Int32" Name="AVRGLDTM" Nullable="true" />
+          <Property Type="Int16" Name="NORCTITM" Nullable="true" />
+          <Property Type="Decimal" Name="MINORQTY" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="MAXORDQTY" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="ECORDQTY" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="String" Name="VNDITDSC" Nullable="true" MaxLength="101" />
+          <Property Type="Decimal" Name="Last_Originating_Cost" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="String" Name="Last_Currency_ID" Nullable="true" MaxLength="15" />
+          <Property Type="Int16" Name="FREEONBOARD" Nullable="true" />
+          <Property Type="String" Name="PRCHSUOM1" Nullable="true" MaxLength="9" />
+          <Property Type="Int16" Name="CURRNIDX" Nullable="true" />
+          <Property Type="Int16" Name="PLANNINGLEADTIME" Nullable="true" />
+          <Property Type="Decimal" Name="ORDERMULTIPLE" Nullable="true" Precision="19" Scale="5" />
+          <Property Type="String" Name="MNFCTRITMNMBR" Nullable="true" MaxLength="31" />
+          <Property Type="Int32" Name="DEX_ROW_ID1" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -450,6 +604,145 @@
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="gp_InventoryItems">
+            <EntityTypeMapping TypeName="ForecastModel.gp_InventoryItems">
+              <MappingFragment StoreEntitySet="gp_InventoryItems">
+                <ScalarProperty Name="Synced" ColumnName="Synced" />
+                <ScalarProperty Name="CustomItem" ColumnName="CustomItem" />
+                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="VNDITDSC" ColumnName="VNDITDSC" />
+                <ScalarProperty Name="VNDITNUM" ColumnName="VNDITNUM" />
+                <ScalarProperty Name="VENDORID" ColumnName="VENDORID" />
+                <ScalarProperty Name="ITEMSHWT" ColumnName="ITEMSHWT" />
+                <ScalarProperty Name="ITEMDESC" ColumnName="ITEMDESC" />
+                <ScalarProperty Name="ITEMNMBR" ColumnName="ITEMNMBR" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AAA2018_SYNC_GP_ITEMS" FunctionName="ForecastModel.Store.AAA2018_SYNC_GP_ITEMS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ForecastModel.AAA2018_SYNC_GP_ITEMS_Result">
+                <ScalarProperty Name="ITEMNMBR" ColumnName="ITEMNMBR" />
+                <ScalarProperty Name="ITEMDESC" ColumnName="ITEMDESC" />
+                <ScalarProperty Name="NOTEINDX" ColumnName="NOTEINDX" />
+                <ScalarProperty Name="ITMSHNAM" ColumnName="ITMSHNAM" />
+                <ScalarProperty Name="ITEMTYPE" ColumnName="ITEMTYPE" />
+                <ScalarProperty Name="ITMGEDSC" ColumnName="ITMGEDSC" />
+                <ScalarProperty Name="STNDCOST" ColumnName="STNDCOST" />
+                <ScalarProperty Name="CURRCOST" ColumnName="CURRCOST" />
+                <ScalarProperty Name="ITEMSHWT" ColumnName="ITEMSHWT" />
+                <ScalarProperty Name="DECPLQTY" ColumnName="DECPLQTY" />
+                <ScalarProperty Name="DECPLCUR" ColumnName="DECPLCUR" />
+                <ScalarProperty Name="ITMTSHID" ColumnName="ITMTSHID" />
+                <ScalarProperty Name="TAXOPTNS" ColumnName="TAXOPTNS" />
+                <ScalarProperty Name="IVIVINDX" ColumnName="IVIVINDX" />
+                <ScalarProperty Name="IVIVOFIX" ColumnName="IVIVOFIX" />
+                <ScalarProperty Name="IVCOGSIX" ColumnName="IVCOGSIX" />
+                <ScalarProperty Name="IVSLSIDX" ColumnName="IVSLSIDX" />
+                <ScalarProperty Name="IVSLDSIX" ColumnName="IVSLDSIX" />
+                <ScalarProperty Name="IVSLRNIX" ColumnName="IVSLRNIX" />
+                <ScalarProperty Name="IVINUSIX" ColumnName="IVINUSIX" />
+                <ScalarProperty Name="IVINSVIX" ColumnName="IVINSVIX" />
+                <ScalarProperty Name="IVDMGIDX" ColumnName="IVDMGIDX" />
+                <ScalarProperty Name="IVVARIDX" ColumnName="IVVARIDX" />
+                <ScalarProperty Name="DPSHPIDX" ColumnName="DPSHPIDX" />
+                <ScalarProperty Name="PURPVIDX" ColumnName="PURPVIDX" />
+                <ScalarProperty Name="UPPVIDX" ColumnName="UPPVIDX" />
+                <ScalarProperty Name="IVRETIDX" ColumnName="IVRETIDX" />
+                <ScalarProperty Name="ASMVRIDX" ColumnName="ASMVRIDX" />
+                <ScalarProperty Name="ITMCLSCD" ColumnName="ITMCLSCD" />
+                <ScalarProperty Name="ITMTRKOP" ColumnName="ITMTRKOP" />
+                <ScalarProperty Name="LOTTYPE" ColumnName="LOTTYPE" />
+                <ScalarProperty Name="KPERHIST" ColumnName="KPERHIST" />
+                <ScalarProperty Name="KPTRXHST" ColumnName="KPTRXHST" />
+                <ScalarProperty Name="KPCALHST" ColumnName="KPCALHST" />
+                <ScalarProperty Name="KPDSTHST" ColumnName="KPDSTHST" />
+                <ScalarProperty Name="ALWBKORD" ColumnName="ALWBKORD" />
+                <ScalarProperty Name="VCTNMTHD" ColumnName="VCTNMTHD" />
+                <ScalarProperty Name="UOMSCHDL" ColumnName="UOMSCHDL" />
+                <ScalarProperty Name="ALTITEM1" ColumnName="ALTITEM1" />
+                <ScalarProperty Name="ALTITEM2" ColumnName="ALTITEM2" />
+                <ScalarProperty Name="USCATVLS_1" ColumnName="USCATVLS_1" />
+                <ScalarProperty Name="USCATVLS_2" ColumnName="USCATVLS_2" />
+                <ScalarProperty Name="USCATVLS_3" ColumnName="USCATVLS_3" />
+                <ScalarProperty Name="USCATVLS_4" ColumnName="USCATVLS_4" />
+                <ScalarProperty Name="USCATVLS_5" ColumnName="USCATVLS_5" />
+                <ScalarProperty Name="USCATVLS_6" ColumnName="USCATVLS_6" />
+                <ScalarProperty Name="MSTRCDTY" ColumnName="MSTRCDTY" />
+                <ScalarProperty Name="MODIFDT" ColumnName="MODIFDT" />
+                <ScalarProperty Name="CREATDDT" ColumnName="CREATDDT" />
+                <ScalarProperty Name="WRNTYDYS" ColumnName="WRNTYDYS" />
+                <ScalarProperty Name="PRCLEVEL" ColumnName="PRCLEVEL" />
+                <ScalarProperty Name="LOCNCODE" ColumnName="LOCNCODE" />
+                <ScalarProperty Name="PINFLIDX" ColumnName="PINFLIDX" />
+                <ScalarProperty Name="PURMCIDX" ColumnName="PURMCIDX" />
+                <ScalarProperty Name="IVINFIDX" ColumnName="IVINFIDX" />
+                <ScalarProperty Name="INVMCIDX" ColumnName="INVMCIDX" />
+                <ScalarProperty Name="CGSINFLX" ColumnName="CGSINFLX" />
+                <ScalarProperty Name="CGSMCIDX" ColumnName="CGSMCIDX" />
+                <ScalarProperty Name="ITEMCODE" ColumnName="ITEMCODE" />
+                <ScalarProperty Name="TCC" ColumnName="TCC" />
+                <ScalarProperty Name="PriceGroup" ColumnName="PriceGroup" />
+                <ScalarProperty Name="PRICMTHD" ColumnName="PRICMTHD" />
+                <ScalarProperty Name="PRCHSUOM" ColumnName="PRCHSUOM" />
+                <ScalarProperty Name="SELNGUOM" ColumnName="SELNGUOM" />
+                <ScalarProperty Name="KTACCTSR" ColumnName="KTACCTSR" />
+                <ScalarProperty Name="LASTGENSN" ColumnName="LASTGENSN" />
+                <ScalarProperty Name="ABCCODE" ColumnName="ABCCODE" />
+                <ScalarProperty Name="Revalue_Inventory" ColumnName="Revalue_Inventory" />
+                <ScalarProperty Name="Tolerance_Percentage" ColumnName="Tolerance_Percentage" />
+                <ScalarProperty Name="Purchase_Item_Tax_Schedu" ColumnName="Purchase_Item_Tax_Schedu" />
+                <ScalarProperty Name="Purchase_Tax_Options" ColumnName="Purchase_Tax_Options" />
+                <ScalarProperty Name="ITMPLNNNGTYP" ColumnName="ITMPLNNNGTYP" />
+                <ScalarProperty Name="STTSTCLVLPRCNTG" ColumnName="STTSTCLVLPRCNTG" />
+                <ScalarProperty Name="CNTRYORGN" ColumnName="CNTRYORGN" />
+                <ScalarProperty Name="INACTIVE" ColumnName="INACTIVE" />
+                <ScalarProperty Name="MINSHELF1" ColumnName="MINSHELF1" />
+                <ScalarProperty Name="MINSHELF2" ColumnName="MINSHELF2" />
+                <ScalarProperty Name="INCLUDEINDP" ColumnName="INCLUDEINDP" />
+                <ScalarProperty Name="LOTEXPWARN" ColumnName="LOTEXPWARN" />
+                <ScalarProperty Name="LOTEXPWARNDAYS" ColumnName="LOTEXPWARNDAYS" />
+                <ScalarProperty Name="LASTGENLOT" ColumnName="LASTGENLOT" />
+                <ScalarProperty Name="Lot_Split_Quantity" ColumnName="Lot_Split_Quantity" />
+                <ScalarProperty Name="UseQtyOverageTolerance" ColumnName="UseQtyOverageTolerance" />
+                <ScalarProperty Name="UseQtyShortageTolerance" ColumnName="UseQtyShortageTolerance" />
+                <ScalarProperty Name="QtyOverTolerancePercent" ColumnName="QtyOverTolerancePercent" />
+                <ScalarProperty Name="QtyShortTolerancePercent" ColumnName="QtyShortTolerancePercent" />
+                <ScalarProperty Name="IVSCRVIX" ColumnName="IVSCRVIX" />
+                <ScalarProperty Name="DEX_ROW_TS" ColumnName="DEX_ROW_TS" />
+                <ScalarProperty Name="DEX_ROW_ID" ColumnName="DEX_ROW_ID" />
+                <ScalarProperty Name="ITEMNMBR1" ColumnName="ITEMNMBR1" />
+                <ScalarProperty Name="VENDORID" ColumnName="VENDORID" />
+                <ScalarProperty Name="ITMVNDTY" ColumnName="ITMVNDTY" />
+                <ScalarProperty Name="VNDITNUM" ColumnName="VNDITNUM" />
+                <ScalarProperty Name="QTYRQSTN" ColumnName="QTYRQSTN" />
+                <ScalarProperty Name="QTYONORD" ColumnName="QTYONORD" />
+                <ScalarProperty Name="QTY_Drop_Shipped" ColumnName="QTY_Drop_Shipped" />
+                <ScalarProperty Name="LSTORDDT" ColumnName="LSTORDDT" />
+                <ScalarProperty Name="LSORDQTY" ColumnName="LSORDQTY" />
+                <ScalarProperty Name="LRCPTQTY" ColumnName="LRCPTQTY" />
+                <ScalarProperty Name="LSRCPTDT" ColumnName="LSRCPTDT" />
+                <ScalarProperty Name="LRCPTCST" ColumnName="LRCPTCST" />
+                <ScalarProperty Name="AVRGLDTM" ColumnName="AVRGLDTM" />
+                <ScalarProperty Name="NORCTITM" ColumnName="NORCTITM" />
+                <ScalarProperty Name="MINORQTY" ColumnName="MINORQTY" />
+                <ScalarProperty Name="MAXORDQTY" ColumnName="MAXORDQTY" />
+                <ScalarProperty Name="ECORDQTY" ColumnName="ECORDQTY" />
+                <ScalarProperty Name="VNDITDSC" ColumnName="VNDITDSC" />
+                <ScalarProperty Name="Last_Originating_Cost" ColumnName="Last_Originating_Cost" />
+                <ScalarProperty Name="Last_Currency_ID" ColumnName="Last_Currency_ID" />
+                <ScalarProperty Name="FREEONBOARD" ColumnName="FREEONBOARD" />
+                <ScalarProperty Name="PRCHSUOM1" ColumnName="PRCHSUOM1" />
+                <ScalarProperty Name="CURRNIDX" ColumnName="CURRNIDX" />
+                <ScalarProperty Name="PLANNINGLEADTIME" ColumnName="PLANNINGLEADTIME" />
+                <ScalarProperty Name="ORDERMULTIPLE" ColumnName="ORDERMULTIPLE" />
+                <ScalarProperty Name="MNFCTRITMNMBR" ColumnName="MNFCTRITMNMBR" />
+                <ScalarProperty Name="DEX_ROW_ID1" ColumnName="DEX_ROW_ID1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -256,6 +256,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ForecastController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ListsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -263,6 +264,9 @@
     <Compile Include="Extensions\UserRoles.cs" />
     <Compile Include="Helpers\AccountHelper.cs" />
     <Compile Include="Helpers\JsonNetResult.cs" />
+    <Compile Include="Models\AAA2018_SYNC_GP_ITEMS_Result.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ForecastEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -277,6 +281,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ForecastEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\gp_InventoryItems.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_AuditLogs.cs">
       <DependentUpon>ForecastEntities.tt</DependentUpon>
@@ -318,6 +325,7 @@
     <Compile Include="ViewModels\mdl_Forecast.cs" />
     <Compile Include="ViewModels\mdl_ForecastDetails.cs" />
     <Compile Include="ViewModels\mdl_ForecastRevision.cs" />
+    <Compile Include="ViewModels\mdl_Item.cs" />
     <Compile Include="ViewModels\mdl_Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -351,6 +359,7 @@
       <DependentUpon>ForecastEntities.edmx</DependentUpon>
       <LastGenOutput>ForecastEntities.cs</LastGenOutput>
     </Content>
+    <Content Include="ngControllers\itemController.js" />
     <Content Include="ngControllers\toolsController.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\dirPagination.js" />
@@ -431,6 +440,9 @@
     <Content Include="Views\Forecast\Details.cshtml" />
     <Content Include="Views\Forecast\CreateForecast.cshtml" />
     <Content Include="Views\Shared\_PopupLayout.cshtml" />
+    <Content Include="Views\Items\Index.cshtml" />
+    <Content Include="Views\Items\AddItem.cshtml" />
+    <Content Include="Views\Items\EditItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,9 +2,6 @@
     display: none;
 }
 
-div#tool-container.show-tool {
-    display: block;
-}
 
 div#spinner-container {
     display: block;

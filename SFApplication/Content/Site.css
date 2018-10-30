@@ -104,3 +104,74 @@ a.popup-open:hover{
 .save-bar{
 
 }
+
+.validation-error{
+    border:1px solid red;
+}
+
+.validation-message{
+    color:red;
+    font-style:italic;
+    font-size:10px;
+    margin-left:3px;
+}
+
+.dropdown-menu{
+    min-width:90px;
+}
+
+.btn-status-toggle > label.btn.active{
+    background-color:#449d44;
+    color:#fff !important;
+}
+
+.btn-group-xs .btn {
+    padding: 1px 6px;
+}
+
+.btn-default {
+    color: #264962 !important;
+}
+
+.btn-blue {
+    background-color: #264962;
+    color: #fff;
+}
+.btn-blue:hover,
+.btn-blue:active {
+    background-color: #00384c;
+    color: #fff;
+}
+
+a.dropdown-item {
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #264962;
+    width: 100%;
+    display: inline-block;
+}
+
+a.dropdown-item:hover {
+    text-decoration:none;
+    cursor:pointer;
+}
+
+table thead {
+    color: #264962;
+    font-weight:600;
+}
+
+.form-control-xs {
+    max-width:none;
+    height: auto !important;
+    padding: 2px 6px !important;
+    font-size:11px;
+}
+
+div.custom-cloak{
+    display: none;
+}
+
+div.custom-cloak.show-tool{
+    display: block;
+}

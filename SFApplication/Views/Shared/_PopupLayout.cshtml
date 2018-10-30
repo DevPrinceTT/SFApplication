@@ -84,5 +84,17 @@
         @RenderSection("Savebar", required: false)
     </div>
     @RenderSection("Scripts", required: false)
+    <script>
+        @{if (!String.IsNullOrEmpty(ViewBag.Message))
+            {
+                <text>alert('@ViewBag.Message');</text>
+            }
+        }
+        @{if (ViewBag.CloseWindow == true)
+            {
+                <text>window.close();</text>
+            }
+        }
+    </script>
 </body>
 </html>
