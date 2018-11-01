@@ -264,6 +264,9 @@
     <Compile Include="Extensions\UserRoles.cs" />
     <Compile Include="Helpers\AccountHelper.cs" />
     <Compile Include="Helpers\JsonNetResult.cs" />
+    <Compile Include="Models\AAA2018_GET_FORECAST_SUMMARY_DATA_Result.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AAA2018_SYNC_GP_ITEMS_Result.cs">
       <DependentUpon>ForecastEntities.tt</DependentUpon>
     </Compile>
@@ -292,6 +295,9 @@
       <DependentUpon>ForecastEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_ForecastItems.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbl_ForecastRevisionDetails.cs">
       <DependentUpon>ForecastEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbl_ForecastRevisions.cs">
@@ -324,6 +330,8 @@
     <Compile Include="ViewModels\IdentityModels.cs" />
     <Compile Include="ViewModels\mdl_Forecast.cs" />
     <Compile Include="ViewModels\mdl_ForecastDetails.cs" />
+    <Compile Include="ViewModels\mdl_ForecastItemData.cs" />
+    <Compile Include="ViewModels\mdl_ForecastItems.cs" />
     <Compile Include="ViewModels\mdl_ForecastRevision.cs" />
     <Compile Include="ViewModels\mdl_Item.cs" />
     <Compile Include="ViewModels\mdl_Login.cs" />
@@ -340,6 +348,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\lightbox-styles.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\cog-styles.css" />
     <Content Include="Content\tool-styles.css" />
@@ -443,6 +452,7 @@
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Items\AddItem.cshtml" />
     <Content Include="Views\Items\EditItem.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -3,7 +3,7 @@
     ViewBag.Title = "Items";
 }
 
-<div class="container custom-cloak {{ 'show-tool' }}" ng-controller="ItemController" id="item-container">
+<div class="custom-cloak {{ 'show-tool' }}" ng-controller="ItemController" id="item-container">
     <div class="row top-buffer">
         <div class="col-sm-12">
             <h3>Items</h3>
@@ -27,7 +27,8 @@
                     <input type="radio" name="filterItems" ng-model="filter_status" value="imported" id="imported-items" autocomplete="off"> Imported ({{imported}})
                 </label>
             </div>
-            <a href="#" class="btn btn-blue" id="new-item">New Item</a>
+            <a href="#" class="btn btn-blue" id="add-item">New Item</a>
+            <a href="#" class="btn btn-blue form-open" data-url="/Items/AddItem">pop</a>
         </div>
     </div>
     <div class="row top-buffer">
@@ -96,7 +97,7 @@
                 e.preventDefault();
                 var url = '/Items/AddItem';
 
-                popupwindow(url, 300, 600);
+                popupwindow(url, 300, 600, angular.element("#item-container").scope().refreshList);
             });
 
             //if btn is clicked
@@ -104,16 +105,20 @@
                 e.preventDefault();
                 var url = '/Items/EditItem/' + e.target.dataset.itemId;
 
-                popupwindow(url, 300, 600);
+                popupwindow(url, 300, 600, angular.element("#item-container").scope().refreshList);
                 //use event listeners from child window
             });
 
             //if btn is clicked
             $(".delete-item-btn").on("click", function (e) {
                 e.preventDefault();
-                alert();
                 angular.element("#item-container").scope().deleteItem(e.target.dataset.itemId);
             });
+
+            function TEST() {
+                console.warn("warn");
+            }
+            
         });
     </script>
 

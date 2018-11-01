@@ -20,5 +20,10 @@ namespace SFApplication.Controllers
             return RedirectToAction("Index", "Forecast");
             //return View();
         }
+        [HttpGet]
+        public ActionResult About()
+        {
+            return View("");
+        }
     }
 }

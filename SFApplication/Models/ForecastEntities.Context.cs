@@ -27,9 +27,11 @@ namespace SFApplication.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<gp_InventoryItems> gp_InventoryItems { get; set; }
         public virtual DbSet<tbl_AuditLogs> tbl_AuditLogs { get; set; }
         public virtual DbSet<tbl_ForecastDetails> tbl_ForecastDetails { get; set; }
         public virtual DbSet<tbl_ForecastItems> tbl_ForecastItems { get; set; }
+        public virtual DbSet<tbl_ForecastRevisionDetails> tbl_ForecastRevisionDetails { get; set; }
         public virtual DbSet<tbl_ForecastRevisions> tbl_ForecastRevisions { get; set; }
         public virtual DbSet<tbl_Forecasts> tbl_Forecasts { get; set; }
         public virtual DbSet<tbl_GroupRoles> tbl_GroupRoles { get; set; }
@@ -39,7 +41,16 @@ namespace SFApplication.Models
         public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
         public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
         public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
-        public virtual DbSet<gp_InventoryItems> gp_InventoryItems { get; set; }
+    
+        [DbFunction("ForecastDBEntities", "AAA2018_GET_FORECAST_SUMMARY_DATA")]
+        public virtual IQueryable<AAA2018_GET_FORECAST_SUMMARY_DATA_Result> AAA2018_GET_FORECAST_SUMMARY_DATA(Nullable<int> forecastId)
+        {
+            var forecastIdParameter = forecastId.HasValue ?
+                new ObjectParameter("ForecastId", forecastId) :
+                new ObjectParameter("ForecastId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<AAA2018_GET_FORECAST_SUMMARY_DATA_Result>("[ForecastDBEntities].[AAA2018_GET_FORECAST_SUMMARY_DATA](@ForecastId)", forecastIdParameter);
+        }
     
         public virtual ObjectResult<AAA2018_SYNC_GP_ITEMS_Result> AAA2018_SYNC_GP_ITEMS()
         {

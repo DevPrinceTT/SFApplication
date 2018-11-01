@@ -103,30 +103,24 @@
                     <th class="th col19"></th>
                     <th class="th col20"></th>*@
                 </tr>
-                <tr ng-repeat="item in itemsList | filter: { ItemName : search }">
-                    <td class="left-pane-cell"><span></span></td>
-                    <td class="left-pane-cell"><span>{{ item.ItemName }}</span></td>
-                    <td class="left-pane-cell"><span>{{ item.ItemDesc }}</span></td>
+                <tr ng-repeat="item in itemsList | filter: { VendorItemNumber : search }">
+                    <td class="left-pane-cell"><div>{{ item.VendorItemNumber }}</div></td>
+                    <td class="left-pane-cell"><div>{{ item.ItemNumber }}</div></td>
+                    <td class="left-pane-cell"><div>{{ item.VendorItemDescription }}</div></td>
                     <td class="left-pane-cell text-center">{{ item.Weight | number: 0 }}</td>
                     <td class="left-pane-cell text-center"></td>
                     <td class="left-pane-cell text-center">{{ item.M | number: 0 }}</td>
                     <td class="left-pane-cell text-center">{{ item.I | number: 0 }}</td>
                     <td class="left-pane-cell text-center">{{ item.P | number: 0 }}</td>
-                    @*<td class="right-pane-cell" dir-paginate-start="month in item.ForecastData | itemsPerPage : 3" emit-repeat-complete>
-                        <a href="#" target="popup" class="consumed popup-open" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.month }}">
-                            {{ month.consumption }}
-                        </a>
-                    </td>*@
                     <td class="right-pane-cell editable" unselectable="on" dir-paginate-start="month in item.ForecastData | itemsPerPage : 3" 
                          emit-repeat-complete>
-                        <i class="glyphicon glyphicon-pencil edit-icon" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.month }}"></i>
-                        <span unselectable="on" >{{ month.forecast }}</span>
+                        <i class="glyphicon glyphicon-pencil edit-icon" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.Month }}"></i>
+                        <span unselectable="on" >{{ month.Forecast }}</span>
                     </td>
                     <td class="right-pane-cell editable" dir-paginate-end>
-                        <i class="glyphicon glyphicon-pencil edit-icon" data-item-revised="1" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.month }}"></i>
-                        <span unselectable="on">{{ month.revised }}</span>
+                        <i class="glyphicon glyphicon-pencil edit-icon" data-item-revised="1" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.Month }}"></i>
+                        <span unselectable="on">{{ month.Revised }}</span>
                     </td>
-                    @*<td class="right-pane-cell" dir-paginate-end>{{ month.actual }}</td>*@
                 </tr>
             </table>
         </div>

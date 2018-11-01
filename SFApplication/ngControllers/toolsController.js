@@ -1,9 +1,11 @@
 ﻿app.controller('ToolsController', function ($scope, $http) {
 
     $scope.itemsList = [];
-    for (var i = 1; i <= 50; i++) {
-        $scope.itemsList.push(blankItem(i));
-    }
+    $.get("/Forecast/GetForecastItems/1").then(function (response) {
+        console.log(response);
+        $scope.itemsList = response.ForecastItems;
+        $scope.$apply();
+    });
 
     $scope.refreshPopups = function () {
         $(document).ready(function () {
@@ -36,102 +38,6 @@
     };
 
     $scope.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    function blankItem(id) {
-        return {
-            ItemId: id,
-            ItemName: "test item - " + id,
-            ItemDesc: "Desc - " + id,
-            Weight: (Math.random() * 100),
-            M: (Math.random() * 10),
-            I: (Math.random() * 10),
-            P: (Math.random() * 10),
-            ForecastData: [{
-                month: 1,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 2,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 3,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 4,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 5,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 6,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 7,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 8,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 9,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 10,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 11,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            },
-            {
-                month: 12,
-                consumption: 0,
-                forecast: 0,
-                revised: 0,
-                actual: 0
-            }]
-        };
-    };
 
     /** CONSUMER POPUP **/
 

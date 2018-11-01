@@ -2,6 +2,9 @@
     display: none;
 }
 
+div.custom-cloak.show-tool {
+    display: block !important;
+}
 
 div#spinner-container {
     display: block;
@@ -279,7 +282,8 @@ td.left-pane-cell {
     padding:8px;
 }
 
-td.left-pane-cell span {
+td.left-pane-cell div,
+td.left-pane-cell {
     padding:8px;
 }
 

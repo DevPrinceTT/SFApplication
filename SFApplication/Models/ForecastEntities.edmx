@@ -52,6 +52,16 @@
           <Property Name="RevisedForecastValueId" Type="int" />
           <Property Name="Month" Type="int" />
         </EntityType>
+        <EntityType Name="tbl_ForecastRevisionDetails">
+          <Key>
+            <PropertyRef Name="RevisionDetailId" />
+          </Key>
+          <Property Name="RevisionDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RevisionId" Type="int" />
+          <Property Name="GPCustomerNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ForecastValue" Type="decimal" Precision="12" Scale="4" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_ForecastRevisions">
           <Key>
             <PropertyRef Name="RevisionId" />
@@ -166,12 +176,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AAA2018_GET_FORECAST_SUMMARY_DATA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ForecastId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ForecastId" Type="int" />
+                <Property Name="Year" Type="int" />
+                <Property Name="ForecastItemId" Type="int" />
+                <Property Name="Month" Type="int" />
+                <Property Name="ItemId" Type="int" />
+                <Property Name="Original" Type="decimal" Precision="38" Scale="4" Nullable="false" />
+                <Property Name="Revised" Type="decimal" Precision="38" Scale="4" Nullable="false" />
+                <Property Name="ItemNumber" Type="nvarchar" MaxLength="50" />
+                <Property Name="ItemDescription" Type="nvarchar" MaxLength="101" />
+                <Property Name="ItemWeight" Type="decimal" Precision="18" Scale="6" />
+                <Property Name="VendorId" Type="nvarchar" MaxLength="50" />
+                <Property Name="VendorItemNumber" Type="nvarchar" MaxLength="101" />
+                <Property Name="VendorItemDescription" Type="nvarchar" MaxLength="50" />
+                <Property Name="CustomItem" Type="bit" />
+                <Property Name="Synced" Type="bit" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="AAA2018_SYNC_GP_ITEMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ForecastModelStoreContainer">
           <EntitySet Name="gp_InventoryItems" EntityType="Self.gp_InventoryItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_AuditLogs" EntityType="Self.tbl_AuditLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ForecastDetails" EntityType="Self.tbl_ForecastDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ForecastItems" EntityType="Self.tbl_ForecastItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ForecastRevisionDetails" EntityType="Self.tbl_ForecastRevisionDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ForecastRevisions" EntityType="Self.tbl_ForecastRevisions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Forecasts" EntityType="Self.tbl_Forecasts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_GroupRoles" EntityType="Self.tbl_GroupRoles" Schema="dbo" store:Type="Tables" />
@@ -196,9 +231,11 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ForecastModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ForecastDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="gp_InventoryItems" EntityType="ForecastModel.gp_InventoryItems" />
           <EntitySet Name="tbl_AuditLogs" EntityType="ForecastModel.tbl_AuditLogs" />
           <EntitySet Name="tbl_ForecastDetails" EntityType="ForecastModel.tbl_ForecastDetails" />
           <EntitySet Name="tbl_ForecastItems" EntityType="ForecastModel.tbl_ForecastItems" />
+          <EntitySet Name="tbl_ForecastRevisionDetails" EntityType="ForecastModel.tbl_ForecastRevisionDetails" />
           <EntitySet Name="tbl_ForecastRevisions" EntityType="ForecastModel.tbl_ForecastRevisions" />
           <EntitySet Name="tbl_Forecasts" EntityType="ForecastModel.tbl_Forecasts" />
           <EntitySet Name="tbl_GroupRoles" EntityType="ForecastModel.tbl_GroupRoles" />
@@ -212,9 +249,27 @@
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="tbl_Users" EntitySet="tbl_Users" />
           </AssociationSet>
-          <EntitySet Name="gp_InventoryItems" EntityType="ForecastModel.gp_InventoryItems" />
+          <FunctionImport Name="AAA2018_GET_FORECAST_SUMMARY_DATA" IsComposable="true" ReturnType="Collection(ForecastModel.AAA2018_GET_FORECAST_SUMMARY_DATA_Result)">
+            <Parameter Name="ForecastId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="AAA2018_SYNC_GP_ITEMS" ReturnType="Collection(ForecastModel.AAA2018_SYNC_GP_ITEMS_Result)" />
         </EntityContainer>
+        <EntityType Name="gp_InventoryItems">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ITEMNMBR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ITEMDESC" Type="String" MaxLength="101" FixedLength="false" Unicode="true" />
+          <Property Name="ITEMSHWT" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="VENDORID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VNDITNUM" Type="String" MaxLength="101" FixedLength="false" Unicode="true" />
+          <Property Name="VNDITDSC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="SyncDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomItem" Type="Boolean" />
+          <Property Name="Synced" Type="Boolean" />
+        </EntityType>
         <EntityType Name="tbl_AuditLogs">
           <Key>
             <PropertyRef Name="AuditLogId" />
@@ -245,6 +300,16 @@
           <Property Name="ForecastValue" Type="Decimal" Precision="12" Scale="2" />
           <Property Name="RevisedForecastValueId" Type="Int32" />
           <Property Name="Month" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_ForecastRevisionDetails">
+          <Key>
+            <PropertyRef Name="RevisionDetailId" />
+          </Key>
+          <Property Name="RevisionDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RevisionId" Type="Int32" />
+          <Property Name="GPCustomerNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ForecastValue" Type="Decimal" Precision="12" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_ForecastRevisions">
           <Key>
@@ -334,22 +399,23 @@
           <End Type="ForecastModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
           <End Type="ForecastModel.tbl_Users" Role="tbl_Users" Multiplicity="*" />
         </Association>
-        <EntityType Name="gp_InventoryItems">
-          <Key>
-            <PropertyRef Name="ItemId" />
-          </Key>
-          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ITEMNMBR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ITEMDESC" Type="String" MaxLength="101" FixedLength="false" Unicode="true" />
-          <Property Name="ITEMSHWT" Type="Decimal" Precision="18" Scale="6" />
-          <Property Name="VENDORID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="VNDITNUM" Type="String" MaxLength="101" FixedLength="false" Unicode="true" />
-          <Property Name="VNDITDSC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="SyncDate" Type="DateTime" Precision="3" />
-          <Property Name="CustomItem" Type="Boolean" />
-          <Property Name="Synced" Type="Boolean" />
-        </EntityType>
+        <ComplexType Name="AAA2018_GET_FORECAST_SUMMARY_DATA_Result">
+          <Property Type="Int32" Name="ForecastId" Nullable="true" />
+          <Property Type="Int32" Name="Year" Nullable="true" />
+          <Property Type="Int32" Name="ForecastItemId" Nullable="true" />
+          <Property Type="Int32" Name="Month" Nullable="true" />
+          <Property Type="Int32" Name="ItemId" Nullable="true" />
+          <Property Type="Decimal" Name="Original" Nullable="false" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="Revised" Nullable="false" Precision="38" Scale="4" />
+          <Property Type="String" Name="ItemNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ItemDescription" Nullable="true" MaxLength="101" />
+          <Property Type="Decimal" Name="ItemWeight" Nullable="true" Precision="18" Scale="6" />
+          <Property Type="String" Name="VendorId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="VendorItemNumber" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="VendorItemDescription" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="CustomItem" Nullable="true" />
+          <Property Type="Boolean" Name="Synced" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="AAA2018_SYNC_GP_ITEMS_Result">
           <Property Type="String" Name="ITEMNMBR" Nullable="false" MaxLength="31" />
           <Property Type="String" Name="ITEMDESC" Nullable="false" MaxLength="101" />
@@ -474,6 +540,23 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ForecastModelStoreContainer" CdmEntityContainer="ForecastDBEntities">
+          <EntitySetMapping Name="gp_InventoryItems">
+            <EntityTypeMapping TypeName="ForecastModel.gp_InventoryItems">
+              <MappingFragment StoreEntitySet="gp_InventoryItems">
+                <ScalarProperty Name="Synced" ColumnName="Synced" />
+                <ScalarProperty Name="CustomItem" ColumnName="CustomItem" />
+                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="VNDITDSC" ColumnName="VNDITDSC" />
+                <ScalarProperty Name="VNDITNUM" ColumnName="VNDITNUM" />
+                <ScalarProperty Name="VENDORID" ColumnName="VENDORID" />
+                <ScalarProperty Name="ITEMSHWT" ColumnName="ITEMSHWT" />
+                <ScalarProperty Name="ITEMDESC" ColumnName="ITEMDESC" />
+                <ScalarProperty Name="ITEMNMBR" ColumnName="ITEMNMBR" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_AuditLogs">
             <EntityTypeMapping TypeName="ForecastModel.tbl_AuditLogs">
               <MappingFragment StoreEntitySet="tbl_AuditLogs">
@@ -505,6 +588,17 @@
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="ForecastId" ColumnName="ForecastId" />
                 <ScalarProperty Name="ForecastItemId" ColumnName="ForecastItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ForecastRevisionDetails">
+            <EntityTypeMapping TypeName="ForecastModel.tbl_ForecastRevisionDetails">
+              <MappingFragment StoreEntitySet="tbl_ForecastRevisionDetails">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ForecastValue" ColumnName="ForecastValue" />
+                <ScalarProperty Name="GPCustomerNumber" ColumnName="GPCustomerNumber" />
+                <ScalarProperty Name="RevisionId" ColumnName="RevisionId" />
+                <ScalarProperty Name="RevisionDetailId" ColumnName="RevisionDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -604,23 +698,27 @@
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="gp_InventoryItems">
-            <EntityTypeMapping TypeName="ForecastModel.gp_InventoryItems">
-              <MappingFragment StoreEntitySet="gp_InventoryItems">
-                <ScalarProperty Name="Synced" ColumnName="Synced" />
-                <ScalarProperty Name="CustomItem" ColumnName="CustomItem" />
-                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="VNDITDSC" ColumnName="VNDITDSC" />
-                <ScalarProperty Name="VNDITNUM" ColumnName="VNDITNUM" />
-                <ScalarProperty Name="VENDORID" ColumnName="VENDORID" />
-                <ScalarProperty Name="ITEMSHWT" ColumnName="ITEMSHWT" />
-                <ScalarProperty Name="ITEMDESC" ColumnName="ITEMDESC" />
-                <ScalarProperty Name="ITEMNMBR" ColumnName="ITEMNMBR" />
+          <FunctionImportMapping FunctionImportName="AAA2018_GET_FORECAST_SUMMARY_DATA" FunctionName="ForecastModel.Store.AAA2018_GET_FORECAST_SUMMARY_DATA">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ForecastModel.AAA2018_GET_FORECAST_SUMMARY_DATA_Result">
+                <ScalarProperty Name="ForecastId" ColumnName="ForecastId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ForecastItemId" ColumnName="ForecastItemId" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+                <ScalarProperty Name="Original" ColumnName="Original" />
+                <ScalarProperty Name="Revised" ColumnName="Revised" />
+                <ScalarProperty Name="ItemNumber" ColumnName="ItemNumber" />
+                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+                <ScalarProperty Name="ItemWeight" ColumnName="ItemWeight" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+                <ScalarProperty Name="VendorItemNumber" ColumnName="VendorItemNumber" />
+                <ScalarProperty Name="VendorItemDescription" ColumnName="VendorItemDescription" />
+                <ScalarProperty Name="CustomItem" ColumnName="CustomItem" />
+                <ScalarProperty Name="Synced" ColumnName="Synced" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="AAA2018_SYNC_GP_ITEMS" FunctionName="ForecastModel.Store.AAA2018_SYNC_GP_ITEMS">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ForecastModel.AAA2018_SYNC_GP_ITEMS_Result">

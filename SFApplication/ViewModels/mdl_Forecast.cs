@@ -9,5 +9,7 @@ namespace SFApplication.ViewModels
     {
         public int ForecastId { get; set; }
         public int? Year { get; set; }
+
+        public List<mdl_ForecastItems> ForecastItems { get; set; }
     }
 }

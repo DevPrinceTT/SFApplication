@@ -1,4 +1,5 @@
 ﻿using SFApplication.Helpers;
+using SFApplication.Models;
 using SFApplication.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace SFApplication.Controllers
 {
     public class ForecastController : Controller
     {
+        ForecastDBEntities db = new ForecastDBEntities();
 
         #region // GET:
 
@@ -93,6 +95,84 @@ namespace SFApplication.Controllers
         public ActionResult CreateForecast(mdl_Forecast model)
         {
             return View();
+        }
+
+        #endregion
+
+        #region AJAX
+
+        /// <summary>
+        /// Get forecast items/summary
+        /// </summary>
+        /// <param name="id">Year</param>
+        /// <returns></returns>
+        public JsonNetResult GetForecastItems(int id)
+        {
+            obj_ServerResponse response = new obj_ServerResponse();
+
+            tbl_Forecasts dbForecast = db.tbl_Forecasts.Find(id);
+            if(dbForecast == null)
+            {
+                //item not found
+                response.MessageType = "warning";
+                response.Message = "Forecast not found!";
+                response.ShowDialog = true;
+            }
+            mdl_Forecast model = new mdl_Forecast();
+            model.ForecastId = id;
+            model.Year = dbForecast.Year;
+
+
+            List<mdl_ForecastItems> data = db.AAA2018_GET_FORECAST_SUMMARY_DATA(id).Select(d => new mdl_ForecastItems()
+            {
+                CustomItem = d.CustomItem,
+                ItemDescription = d.ItemDescription,
+                ItemId = d.ItemId ?? 0,
+                ItemNumber = d.ItemNumber,
+                ItemWeight = d.ItemWeight,
+                I = null,
+                M = null,
+                P = null,
+                VendorItemDescription = d.VendorItemDescription,
+                VendorItemNumber = d.VendorItemNumber,
+                Month = d.Month,
+                ForecastItemId = d.ForecastItemId,
+                Original = d.Original,
+                Revised = d.Revised
+            }).ToList<mdl_ForecastItems>();
+
+            //populate matrix data
+            model.ForecastItems = new List<mdl_ForecastItems>();
+
+            for(int i = 0; i < data.Count(); i++)
+            {
+                mdl_ForecastItems item = data[i];
+                item.ForecastData = new List<mdl_ForecastItemData>();
+
+                //get data for each month
+                for(int m = 1; m<= 12; m++)
+                {
+                    mdl_ForecastItemData mdata = new mdl_ForecastItemData();
+                    mdata.Month = m;
+                    if (data[i].Month == m)
+                    {
+                        mdata.Revised = data[i].Revised ?? 0;
+                        mdata.Forecast = data[i].Original ?? 0;
+                    }
+                    else
+                    {
+                        mdata.Revised = 0;
+                        mdata.Forecast = 0;
+                    }
+
+                    item.ForecastData.Add(mdata);
+
+                }
+                model.ForecastItems.Add(item);
+            }
+            
+
+            return new JsonNetResult(model);
         }
 
         #endregion

@@ -14,27 +14,34 @@
 </head>
 <body>
     @if (WebSecurity.IsAuthenticated || !(ViewBag.HideLayout ?? true))
-        {
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container full-width">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Sales Forecast Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
-                    </ul>*@
-                @Html.Partial("_LoginPartial")
+    {
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container full-width">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Sales Forecast Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    @*<ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
+                        </ul>*@
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
+    }
+
+    <div class="overlay">
+        <div class="white-box">
+            <div class="title-bar"><i class="glyphicon glyphicon-remove form-close"></i></div>
+            <div class="popup-body">test</div>
+        </div>
     </div>
-    } 
     <div class="container body-content @ViewBag.FullWidth" ng-app="SFApplication">
         @RenderBody()
         @RenderSection("SPAViews", required: false)
@@ -42,7 +49,7 @@
 
     @RenderSection("Scripts", required: false)
     <script>
-        function popupwindow(url,h, w, callback) {
+        function popupwindow(url, h, w, callback) {
             if (h == null) {
                 h = 500;
             }
@@ -60,12 +67,74 @@
             var left = ((width / 2) - (1000 / 2)) + dualScreenLeft;
             var top = ((height / 2) - (400 / 2)) + dualScreenTop;
 
-            window.open(url, 'popup', 'resizable=0,width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ', scrollbars=no,resizable=no');
+            var x = window.open(url, 'popup', 'resizable=0,width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ', scrollbars=no,resizable=no');
+
+            console.log(x);
 
             if (typeof (callback) != undefined) {
-                window.somefunction = callback;
+                window.callback = callback;
             }
-            
+
+        }
+
+        $(document).ready(function () {
+            $('.form-open').on("click", function (e) {
+                var url = e.target.dataset.url;
+
+                clearOverlay();
+
+                if (typeof (url) == undefined) {
+                    console.warn("url not set");
+                    return false;
+                }
+                if (url == "" || url == null) {
+                    console.warn("url not set");
+                    return false;
+                }
+
+                $.get(url).then(function (response) {
+                    $('.popup-body').html(response);
+                }).then(function () {
+                    showOverlay();
+                });
+            });
+
+            $('.form-close').on("click", function (e) {
+
+                hideOverlay();
+
+                clearOverlay();
+            });
+        });
+
+        function showOverlay() {
+
+            if ($('.overlay').hasClass('show')) {
+                console.warn('form already open!');
+                return false;
+            }
+
+
+            if (!($('body').hasClass('no-scroll'))) {
+                $('body').addClass('no-scroll');
+            }
+
+            $('.overlay').addClass('show');
+        }
+
+        function hideOverlay() {
+
+            if ($('.overlay').hasClass('show')) {
+                $('.overlay').removeClass('show');
+            }
+
+            if (!($('body').hasClass('no-scroll'))) {
+                $('body').removeClass('no-scroll');
+            }
+        }
+
+        function clearOverlay() {
+            $('.popup-body').html('');
         }
     </script>
 </body>
