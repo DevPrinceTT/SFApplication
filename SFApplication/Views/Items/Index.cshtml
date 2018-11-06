@@ -3,7 +3,7 @@
     ViewBag.Title = "Items";
 }
 
-<div class="custom-cloak {{ 'show-tool' }}" ng-controller="ItemController" id="item-container">
+<div class="custom-cloak {{ 'show-tool' }}" ng-controller="ItemListController" id="item-container">
     <div class="row top-buffer">
         <div class="col-sm-12">
             <h3>Items</h3>
@@ -27,8 +27,7 @@
                     <input type="radio" name="filterItems" ng-model="filter_status" value="imported" id="imported-items" autocomplete="off"> Imported ({{imported}})
                 </label>
             </div>
-            <a href="#" class="btn btn-blue" id="add-item">New Item</a>
-            <a href="#" class="btn btn-blue form-open" data-url="/Items/AddItem">pop</a>
+            <a href="#" class="btn btn-blue form-open" data-url="Items/AddItem" data-ngcontroller="ItemController">New Item</a>
         </div>
     </div>
     <div class="row top-buffer">
@@ -57,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="item in items | filter : { ItemNumber : filter_fld_code, VendorItemNumber : filter_vendor_code, ItemDescription : filter_fdl_desc, VendorItemDescription : filter_vendor_desc, Status : filter_status } | itemsPerPage : 20 | orderBy : Status ">
+                    <tr dir-paginate="item in items | filter : { ItemNumber : filter_fld_code, VendorItemNumber : filter_vendor_code, ItemDescription : filter_fdl_desc, VendorItemDescription : filter_vendor_desc, Status : filter_status } | itemsPerPage : 200 | orderBy : Status ">
                         <td class="text-center">{{ item.ItemNumber }}</td>
                         <td class="text-center">{{ item.VendorItemNumber }}</td>
                         <td>{{ item.ItemDescription }}</td>
@@ -65,13 +64,13 @@
                         <td class="text-center">{{ item.Status }}</td>
                         <td class="text-center">
                             <div class="btn-group btn-group-xs" role="group" ng-show="{{ item.Status == 'Custom' }}">
-                                <button type="button" class="btn btn-default btn-sm edit-item-btn" data-item-id="{{ item.ItemId }}">Edit</button>
+                                <button type="button" class="btn btn-default btn-sm form-open" data-ngcontroller="ItemController" data-url="Items/EditItem" data-id="{{ item.ItemId }}">Edit</button>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button id="item-actions" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="caret"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="item-actions">
-                                        <a class="dropdown-item delete-item-btn" href="#" data-item-id="{{ item.ItemId }}">Delete</a>
+                                        <a class="dropdown-item" ng-click="deleteItem(item.ItemId)">Delete</a>
                                     </div>
                                 </div>
                             </div>
@@ -91,34 +90,6 @@
         $(document).ready(function () {
             //call angular
             angular.element("#item-container").scope().indexLoad();
-
-            //popup window
-            $("#add-item").on("click", function (e) {
-                e.preventDefault();
-                var url = '/Items/AddItem';
-
-                popupwindow(url, 300, 600, angular.element("#item-container").scope().refreshList);
-            });
-
-            //if btn is clicked
-            $(".edit-item-btn").on("click", function (e) {
-                e.preventDefault();
-                var url = '/Items/EditItem/' + e.target.dataset.itemId;
-
-                popupwindow(url, 300, 600, angular.element("#item-container").scope().refreshList);
-                //use event listeners from child window
-            });
-
-            //if btn is clicked
-            $(".delete-item-btn").on("click", function (e) {
-                e.preventDefault();
-                angular.element("#item-container").scope().deleteItem(e.target.dataset.itemId);
-            });
-
-            function TEST() {
-                console.warn("warn");
-            }
-            
         });
     </script>
 

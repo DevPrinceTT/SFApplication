@@ -1,12 +1,4 @@
-﻿@model SFApplication.ViewModels.mdl_Item
-@{
-    ViewBag.Title = "Edit Item";
-    Layout = "~/Views/Shared/_PopupLayout.cshtml";
-}
-
-<div ng-controller="ItemController">
-    <form>
-        <!--AJAX FORM HANDLED USING JQUERY/ANGULARJS-->
+﻿
         <div class="{{ 'show-tool' }} container popup-container" id="popup-container">
             <div class="row">
                 <div class="col-xs-8">
@@ -28,27 +20,17 @@
                 </div>
             </div>
         </div>
-        <footer class="footer">
+        <div class="footer">
             <div class="row">
                 <div class="col-xs-6" style="float:right; text-align:right;">
-                    <button class="btn btn-default test">test</button>
                     <button class="btn btn-default" ng-click="closePopup()">Cancel</button>
                     <button class="btn btn-success" ng-click="saveItem()">Save</button>
                 </div>
             </div>
-        </footer>
-    </form>
-</div>
+        </div>
 
-@section Scripts{
     <script>
         $(document).ready(function () {
             angular.element("#popup-container").scope().populateForEdit(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
-            
-
-            $("test").on("click",function () {
-                    window.parent.TEST();
-            });
         });
     </script>
-    }

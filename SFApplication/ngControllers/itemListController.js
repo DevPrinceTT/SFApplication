@@ -1,14 +1,14 @@
-﻿app.controller('ItemController', function ($scope, $http, $uibModalInstance) {
-   
+﻿app.controller('ItemListController', function ($scope, $http) {
+
     //initialize objects
     $scope.item = {};
-    $scope.errors = [];
 
     $scope.refreshList = function () {
         $http({
             method: "GET",
             url: "/Items/ListItems",
         }).then(function (response) {
+            $scope.items = [];
             $scope.items = response.data;
 
             //get counts
@@ -21,6 +21,17 @@
             $scope.imported = ($.grep($scope.items, function (item) {
                 return item.Status == "Imported";
             })).length;
+
+        }).then($scope.refreshPopups());
+    };
+
+    $scope.refreshPopups = function () {
+
+        $(document).ready(function () {
+            $(".delete-item-btn").on("click", function (e) {
+                e.preventDefault(e.target.dataset.itemId);
+                $scope.deleteItem(e.target.dataset.itemId);
+            });
         });
     };
 
@@ -30,22 +41,27 @@
         $scope.custom = 0;
         $scope.imported = 0;
 
+        delete($scope.filter_status);
         $scope.$watch('filter_status', function () {
             $scope.refreshPopups();
         });
 
+        delete($scope.filter_fld_code);
         $scope.$watch('filter_fld_code', function () {
             $scope.refreshPopups();
         });
 
+        delete($scope.filter_vendor_code);
         $scope.$watch('filter_vendor_code', function () {
             $scope.refreshPopups();
         });
 
+        delete($scope.filter_fdl_desc);
         $scope.$watch('filter_fdl_desc', function () {
             $scope.refreshPopups();
         });
 
+        delete($scope.filter_vendor_desc);
         $scope.$watch('filter_vendor_desc', function () {
             $scope.refreshPopups();
         });
@@ -66,45 +82,28 @@
             $scope.imported = ($.grep($scope.items, function (item) {
                 return item.Status == "Imported";
             })).length;
-        });
+            }).then(function () {
+                console.log("done");
+                rp();
+            });
     };
 
-    $scope.closePopup = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-
-    $scope.saveItem = function () {
-
-        //merege changes
-        $scope.item = $.extend($scope.item, $scope.item.model);
+    $scope.deleteItem = function (id) {
+        var confirm_delete = confirm("Are you sure you want to delete this item?");
+        if (confirm_delete != true) {
+            return;
+        }
 
         $http({
             method: "POST",
-            url: "/Items/EditItem",
+            url: "/Items/DeleteItem/",
             data: {
-                'collection': JSON.stringify($scope.item)
+                'id': id
             }
         }).then(function (response) {
             handleRepsonse(response);
         });
     };
-
-    $scope.addItem = function () {
-        $http({
-            method: "POST",
-            url: "/Items/AddItem",
-            data: {
-                'collection': JSON.stringify($scope.item)
-            }
-        }).then(function (response) {
-            handleRepsonse(response);
-        });
-    };
-
-    $scope.populateForEdit = function (model) {
-        $scope.item = model;
-        $scope.$apply();
-    }
 
     function handleRepsonse(response) {
 
@@ -139,13 +138,15 @@
                 }
 
                 if (response.data.MessageType == "success" && response.data.ShowDialog == true) {
-                    //close window
-                    $uibModalInstance.dismiss('cancel');
-
                     window.dispatchEvent(new Event("scopeUpdated"));
                 }
             }
         }
     }
+
+    window.addEventListener("scopeUpdated", function () {
+        $scope.refreshList();
+    });
+
 
 });

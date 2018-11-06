@@ -222,3 +222,18 @@ div.custom-cloak.show-tool{
 .overlay .show{
     display: block;
 }
+
+.modal-dialog {
+    width: 650px;
+    min-height: 600px;
+    margin: 12% auto;
+}
+.modal-dialog .modal-content {
+    padding:20px;
+    min-height: 200px;
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}

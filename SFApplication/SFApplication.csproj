@@ -369,6 +369,8 @@
       <LastGenOutput>ForecastEntities.cs</LastGenOutput>
     </Content>
     <Content Include="ngControllers\itemController.js" />
+    <Content Include="ngControllers\itemListController.js" />
+    <Content Include="ngControllers\layoutController.js" />
     <Content Include="ngControllers\toolsController.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\dirPagination.js" />
@@ -423,6 +425,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\sammy-0.7.5.js" />
     <Content Include="Scripts\sammy-0.7.5.min.js" />
+    <Content Include="Scripts\bootstrap-ui-tpls.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\_Home.cshtml" />

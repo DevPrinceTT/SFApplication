@@ -1,39 +1,29 @@
-﻿@model SFApplication.ViewModels.mdl_Item
-@{
-    ViewBag.Title = "Add Item";
-    Layout = "~/Views/Shared/_PopupLayout.cshtml";
-}
-
-<div ng-controller="ItemController">
-    <form> <!--AJAX FORM HANDLED USING JQUERY/ANGULARJS-->
-        <div class="{{ 'show-tool' }} container popup-container" id="popup-container">
-            <div class="row">
-                <div class="col-xs-8">
-                    <h3>New Item</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-4 input">
-                    <label>Supplier Code</label>
-                    <input type="text" class="form-control" id="VendorItemNumber" name="VendorItemNumber" ng-model="item.VendorItemNumber" />
-                    <span class="VendorItemNumber validation-message">{{ errors.VendorItemNumber }}</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-10 input">
-                    <label>Description</label>
-                    <textarea class="form-control" id="VendorItemDescription" name="VendorItemDescription" ng-model="item.VendorItemDescription"></textarea>
-                    <span class="VendorItemDescription validation-message">{{ errors.VendorItemDescription }}</span>
-                </div>
-            </div>
+﻿<div class="{{ 'show-tool' }} container popup-container" id="popup-container">
+    <div class="row">
+        <div class="col-xs-8">
+            <h3>New Item</h3>
         </div>
-        <footer class="footer">
-            <div class="row">
-                <div class="col-xs-6" style="float:right; text-align:right;">
-                    <button class="btn btn-default" ng-click="closePopup()">Cancel</button>
-                    <button class="btn btn-success" ng-click="addItem()">Save</button>
-                </div>
-            </div>
-        </footer>
-    </form>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 input">
+            <label>Supplier Code</label>
+            <input type="text" class="form-control" id="VendorItemNumber" name="VendorItemNumber" ng-model="item.VendorItemNumber" />
+            <span class="VendorItemNumber validation-message">{{ errors.VendorItemNumber }}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-10 input">
+            <label>Description</label>
+            <textarea class="form-control" id="VendorItemDescription" name="VendorItemDescription" ng-model="item.VendorItemDescription"></textarea>
+            <span class="VendorItemDescription validation-message">{{ errors.VendorItemDescription }}</span>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="row">
+        <div class="col-xs-6" style="float:right; text-align:right;">
+            <button class="btn btn-default" ng-click="closePopup()">Cancel</button>
+            <button class="btn btn-success" ng-click="addItem()">Save</button>
+        </div>
+    </div>
 </div>

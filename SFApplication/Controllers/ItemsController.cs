@@ -32,7 +32,7 @@ namespace SFApplication.Controllers
         // GET: Items/AddItem
         public ActionResult AddItem()
         {
-            return View();
+            return PartialView();
         }
 
         // GET: Items/EditItem/1
@@ -66,7 +66,7 @@ namespace SFApplication.Controllers
             item.VendorItemNumber = dbitem.VNDITNUM;
             item.VendorItemDescription = dbitem.VNDITDSC;
                        
-            return View(item);
+            return PartialView(item);
         }
 
         #endregion
@@ -150,9 +150,20 @@ namespace SFApplication.Controllers
                     response.Message = "Item not found!";
                     response.ShowDialog = true;
                 }
+                
+                //validate existing vendor item number
+                IQueryable<gp_InventoryItems> existingItems = db.gp_InventoryItems.Where(d => d.VNDITNUM == item.VendorItemNumber && d.ItemId != item.ItemId);
+                if (existingItems.Count() > 0)
+                {
+                    response.MessageType = "warning";
+                    response.Message = "An item already has that vendor code, try again!";
+                    response.ShowDialog = true;
+
+                    return new JsonNetResult(response);
+                }
 
                 //only edit custom, unsynced items
-                if(dbItem.CustomItem != true || dbItem.Synced == true )
+                if (dbItem.CustomItem != true || dbItem.Synced == true )
                 {
                     //item not found
                     response.MessageType = "warning";

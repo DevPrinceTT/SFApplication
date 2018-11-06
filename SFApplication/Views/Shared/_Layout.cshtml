@@ -42,48 +42,23 @@
             <div class="popup-body">test</div>
         </div>
     </div>
-    <div class="container body-content @ViewBag.FullWidth" ng-app="SFApplication">
+    <div class="container body-content @ViewBag.FullWidth" ng-app="SFApplication" ng-controller="layoutController" id="body-container">
         @RenderBody()
         @RenderSection("SPAViews", required: false)
     </div>
 
     @RenderSection("Scripts", required: false)
     <script>
-        function popupwindow(url, h, w, callback) {
-            if (h == null) {
-                h = 500;
-            }
-            if (w == null) {
-                w = 1000;
-            }
-
-            // Fixes dual-screen position                         Most browsers      Firefox
-            var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
-            var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
-
-            var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-            var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-
-            var left = ((width / 2) - (1000 / 2)) + dualScreenLeft;
-            var top = ((height / 2) - (400 / 2)) + dualScreenTop;
-
-            var x = window.open(url, 'popup', 'resizable=0,width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ', scrollbars=no,resizable=no');
-
-            console.log(x);
-
-            if (typeof (callback) != undefined) {
-                window.callback = callback;
-            }
-
-        }
-
         $(document).ready(function () {
-            $('.form-open').on("click", function (e) {
+            $(document).on("click", ".form-open", function (e) {
+                e.preventDefault();
+
                 var url = e.target.dataset.url;
+                var controller = e.target.dataset.ngcontroller;
+                var id = e.target.dataset.id;
 
-                clearOverlay();
-
-                if (typeof (url) == undefined) {
+                //validate url
+                if (typeof (url) == "undefined") {
                     console.warn("url not set");
                     return false;
                 }
@@ -92,50 +67,34 @@
                     return false;
                 }
 
-                $.get(url).then(function (response) {
-                    $('.popup-body').html(response);
-                }).then(function () {
-                    showOverlay();
-                });
-            });
+                //append id to url (for edits)
+                if (typeof (id) != "undefined") {
+                    if (id != "" || id != null) {
+                        //add forwardslash
+                        if (url[url.length - 1] != '/') {
+                            url += '/';
+                        }
+                        url += id;
+                    }
+                }
 
-            $('.form-close').on("click", function (e) {
+                //validate angular controller
+                if (typeof (controller) == "undefined") {
+                    console.warn("ng controller not set");
+                    return false;
+                }
+                if (controller == "" || controller == null) {
+                    console.warn("ng controller not set");
+                    return false;
+                }
 
-                hideOverlay();
+                angular.element("#body-container").scope().url = url;
+                angular.element("#body-container").scope().controller = controller;
 
-                clearOverlay();
+                angular.element("#body-container").scope().openComponentModal();
+
             });
         });
-
-        function showOverlay() {
-
-            if ($('.overlay').hasClass('show')) {
-                console.warn('form already open!');
-                return false;
-            }
-
-
-            if (!($('body').hasClass('no-scroll'))) {
-                $('body').addClass('no-scroll');
-            }
-
-            $('.overlay').addClass('show');
-        }
-
-        function hideOverlay() {
-
-            if ($('.overlay').hasClass('show')) {
-                $('.overlay').removeClass('show');
-            }
-
-            if (!($('body').hasClass('no-scroll'))) {
-                $('body').removeClass('no-scroll');
-            }
-        }
-
-        function clearOverlay() {
-            $('.popup-body').html('');
-        }
     </script>
 </body>
 </html>

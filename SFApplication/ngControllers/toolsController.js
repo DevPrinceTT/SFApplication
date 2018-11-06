@@ -30,9 +30,7 @@
                 var top = ((height / 2) - (400 / 2)) + dualScreenTop;
 
                 window.open(url, 'popup', 'width=900,height=500,left=' + left + ',top=' + top + ', scrollbars=no,resizable=no');
-                window.somefunction = function () {
-                    console.log("test");
-                }
+
             });
         });
     };
