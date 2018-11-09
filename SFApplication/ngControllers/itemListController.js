@@ -84,7 +84,6 @@
             })).length;
             }).then(function () {
                 console.log("done");
-                rp();
             });
     };
 

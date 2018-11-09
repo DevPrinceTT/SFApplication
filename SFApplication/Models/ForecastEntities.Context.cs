@@ -42,6 +42,23 @@ namespace SFApplication.Models
         public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
         public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
     
+        public virtual int AAA2018_CONSUMER_REPORT(string vendorItemId, Nullable<int> year, Nullable<int> month)
+        {
+            var vendorItemIdParameter = vendorItemId != null ?
+                new ObjectParameter("VendorItemId", vendorItemId) :
+                new ObjectParameter("VendorItemId", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AAA2018_CONSUMER_REPORT", vendorItemIdParameter, yearParameter, monthParameter);
+        }
+    
         [DbFunction("ForecastDBEntities", "AAA2018_GET_FORECAST_SUMMARY_DATA")]
         public virtual IQueryable<AAA2018_GET_FORECAST_SUMMARY_DATA_Result> AAA2018_GET_FORECAST_SUMMARY_DATA(Nullable<int> forecastId)
         {
@@ -52,9 +69,33 @@ namespace SFApplication.Models
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<AAA2018_GET_FORECAST_SUMMARY_DATA_Result>("[ForecastDBEntities].[AAA2018_GET_FORECAST_SUMMARY_DATA](@ForecastId)", forecastIdParameter);
         }
     
+        [DbFunction("ForecastDBEntities", "AAA2018_GPITEM_SYNC_ERRORS")]
+        public virtual IQueryable<AAA2018_GPITEM_SYNC_ERRORS_Result> AAA2018_GPITEM_SYNC_ERRORS()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<AAA2018_GPITEM_SYNC_ERRORS_Result>("[ForecastDBEntities].[AAA2018_GPITEM_SYNC_ERRORS]()");
+        }
+    
         public virtual ObjectResult<AAA2018_SYNC_GP_ITEMS_Result> AAA2018_SYNC_GP_ITEMS()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AAA2018_SYNC_GP_ITEMS_Result>("AAA2018_SYNC_GP_ITEMS");
+        }
+    
+        [DbFunction("ForecastDBEntities", "AAA2018_CONSUMER_REPORT_DATA")]
+        public virtual IQueryable<AAA2018_CONSUMER_REPORT_DATA_Result> AAA2018_CONSUMER_REPORT_DATA(string vendorItemId, Nullable<int> year, Nullable<int> month)
+        {
+            var vendorItemIdParameter = vendorItemId != null ?
+                new ObjectParameter("VendorItemId", vendorItemId) :
+                new ObjectParameter("VendorItemId", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<AAA2018_CONSUMER_REPORT_DATA_Result>("[ForecastDBEntities].[AAA2018_CONSUMER_REPORT_DATA](@VendorItemId, @Year, @Month)", vendorItemIdParameter, yearParameter, monthParameter);
         }
     }
 }

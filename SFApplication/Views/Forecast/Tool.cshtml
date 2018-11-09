@@ -12,7 +12,7 @@
                     <div class="col-md-offset-6 col-md-3 text-right">
                     </div>
                     <div class="col-md-3">
-                        <dir-pagination-controls on-page-change="refreshPopups()"></dir-pagination-controls>
+                        <dir-pagination-controls></dir-pagination-controls>
                     </div>
                 </div>
             </div>
@@ -58,20 +58,14 @@
                         <th class="th col7">I</th>
                         <th class="th col8">P</th>
 
-                        @*<th class="th col9">Consumed</th>*@
-                        <th class="th col10">Forecast</th>
-                        <th class="th col11">Revised</th>
-                        @*<th class="th col12">Actual</th>*@
+                        <th class="th col9">Forecast</th>
+                        <th class="th col10">Revised</th>
 
-                        @*<th class="th col13">Consumed</th>*@
-                        <th class="th col14">Forecast</th>
-                        <th class="th col15">Revised</th>
-                        @*<th class="th col16">Actual</th>*@
+                        <th class="th col11">Forecast</th>
+                        <th class="th col12">Revised</th>
 
-                        @*<th class="th col17">Consumed</th>*@
-                        <th class="th col18">Forecast</th>
-                        <th class="th col19">Revised</th>
-                        @*<th class="th col20">Actual</th>*@
+                        <th class="th col13">Forecast</th>
+                        <th class="th col14">Revised</th>
                     </tr>
                 </table>
             </div>
@@ -114,11 +108,11 @@
                     <td class="left-pane-cell text-center">{{ item.P | number: 0 }}</td>
                     <td class="right-pane-cell editable" unselectable="on" dir-paginate-start="month in item.ForecastData | itemsPerPage : 3" 
                          emit-repeat-complete>
-                        <i class="glyphicon glyphicon-pencil edit-icon" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.Month }}"></i>
+                        <i class="glyphicon glyphicon-pencil form-open edit-icon" data-size="lg" data-id="{{ item.ItemId }}" data-querystring="?m={{ month.Month }}" data-ngcontroller="ForecastDetailController" data-url="/Forecast/Details"></i>
                         <span unselectable="on" >{{ month.Forecast }}</span>
                     </td>
                     <td class="right-pane-cell editable" dir-paginate-end>
-                        <i class="glyphicon glyphicon-pencil edit-icon" data-item-revised="1" data-item-id="{{ item.ItemId }}" data-item-month="{{ month.Month }}"></i>
+                        <i class="glyphicon glyphicon-pencil form-open edit-icon" data-size="lg" data-id="{{ item.ItemId }}" data-querystring="?m={{ month.Month }}&r=1" data-ngcontroller="ForecastDetailController" data-url="/Forecast/Details"></i>
                         <span unselectable="on">{{ month.Revised }}</span>
                     </td>
                 </tr>
@@ -133,32 +127,6 @@
     <link rel="stylesheet" type="text/css" href="~/Content/cog-styles.css">
 }
 
-@section Scripts{
-    <script>
-        $(document).ready(function () {
-            function damn() {
-                console.log("work naaaa");
-            }
 
-            //if pen is clicked
-            $("td.editable i.edit-icon").on("click", function (e) {
-                e.preventDefault();
-                var url = '/Forecast/Details/' + e.target.dataset.itemId + '?m=' + String(e.target.dataset.itemMonth);
-                if (e.target.dataset.hasOwnProperty("itemRevised")) {
-                    if (e.target.dataset.itemRevised != null) {
-                        url += '&r=' + e.target.dataset.itemRevised;
-                    }
-
-                }
-
-                popupwindow(url, 500, 1000);
-                //use event listeners from child window
-
-
-            });
-        });
-    </script>
-
-    }
 
 

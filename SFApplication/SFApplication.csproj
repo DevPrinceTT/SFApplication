@@ -264,7 +264,13 @@
     <Compile Include="Extensions\UserRoles.cs" />
     <Compile Include="Helpers\AccountHelper.cs" />
     <Compile Include="Helpers\JsonNetResult.cs" />
+    <Compile Include="Models\AAA2018_CONSUMER_REPORT_DATA_Result.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AAA2018_GET_FORECAST_SUMMARY_DATA_Result.cs">
+      <DependentUpon>ForecastEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AAA2018_GPITEM_SYNC_ERRORS_Result.cs">
       <DependentUpon>ForecastEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AAA2018_SYNC_GP_ITEMS_Result.cs">
@@ -328,6 +334,7 @@
       <DependentUpon>ForecastEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\IdentityModels.cs" />
+    <Compile Include="ViewModels\mdl_ConsumerReport.cs" />
     <Compile Include="ViewModels\mdl_Forecast.cs" />
     <Compile Include="ViewModels\mdl_ForecastDetails.cs" />
     <Compile Include="ViewModels\mdl_ForecastItemData.cs" />
@@ -368,6 +375,7 @@
       <DependentUpon>ForecastEntities.edmx</DependentUpon>
       <LastGenOutput>ForecastEntities.cs</LastGenOutput>
     </Content>
+    <Content Include="ngControllers\forecastDetailController.js" />
     <Content Include="ngControllers\itemController.js" />
     <Content Include="ngControllers\itemListController.js" />
     <Content Include="ngControllers\layoutController.js" />

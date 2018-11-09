@@ -2,12 +2,13 @@
 @if (Request.IsAuthenticated)
 {
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a class="user-name">Hello @WebSecurity.CurrentUserName!</a>
-        </li>
-        <li><a href="/Account/Logout">Log out</a></li>
-    </ul>
+<ul class="nav navbar-nav navbar-right">
+    @*<li><a href="#"><span class="badge">12</span><i class="glyphicon glyphicon-bell"></i></a></li>*@
+    <li>
+        <a class="user-name">Hello @WebSecurity.CurrentUserName!</a>
+    </li>
+    <li><a href="/Account/Logout">Log out</a></li>
+</ul>
 }
 else
 {

@@ -4,6 +4,9 @@ using SFApplication.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,10 +30,10 @@ namespace SFApplication.Controllers
         // GET: Forecast/Tool/2018
         public ActionResult Tool(int id = 0)
         {
-            //if (!WebSecurity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("Logout", "Account");
-            //}
+            if (!WebSecurity.IsAuthenticated)
+            {
+                return RedirectToAction("Logout", "Account");
+            }
 
             //WebSecurity.RequireRoles("Test");
 
@@ -52,14 +55,25 @@ namespace SFApplication.Controllers
         /// <returns>Consumption Report</returns>
         public ActionResult Details(int id, int m)
         {
+            if (!WebSecurity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            obj_ServerResponse response = new obj_ServerResponse();
+
             ViewBag.ItemId = id;
             ViewBag.Month = m;
-
-            return View();
+            
+            return PartialView();
         }
 
         public ActionResult CreateForecast()
         {
+            if (!WebSecurity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             return View();
         }
 
@@ -173,6 +187,25 @@ namespace SFApplication.Controllers
             
 
             return new JsonNetResult(model);
+        }
+
+        public JsonNetResult GetConsumerReport(int id, int month)
+        {
+            gp_InventoryItems gpItem = db.gp_InventoryItems.Find(id);
+
+            List<mdl_ConsumerReport> consumers = db.AAA2018_CONSUMER_REPORT_DATA(gpItem.VNDITNUM, 2012, month)
+                .Select(d => new mdl_ConsumerReport()
+                {
+                    Average = d.Average,
+                    CustomerName = d.CustomerName,
+                    CustomerNumber = d.CustomerNumber,
+                    MonthUsage = d.MonthlyUsage,
+                    Quantity = d.OverallUsage,
+                    Rank = d.Rank
+                })
+                .ToList<mdl_ConsumerReport>();
+
+            return new JsonNetResult(consumers);
         }
 
         #endregion

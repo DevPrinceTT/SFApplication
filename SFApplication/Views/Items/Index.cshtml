@@ -56,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="item in items | filter : { ItemNumber : filter_fld_code, VendorItemNumber : filter_vendor_code, ItemDescription : filter_fdl_desc, VendorItemDescription : filter_vendor_desc, Status : filter_status } | itemsPerPage : 200 | orderBy : Status ">
+                    <tr dir-paginate="item in items | filter : { ItemNumber : filter_fld_code, VendorItemNumber : filter_vendor_code, ItemDescription : filter_fdl_desc, VendorItemDescription : filter_vendor_desc, Status : filter_status } | itemsPerPage : 20 | orderBy : Status ">
                         <td class="text-center">{{ item.ItemNumber }}</td>
                         <td class="text-center">{{ item.VendorItemNumber }}</td>
                         <td>{{ item.ItemDescription }}</td>

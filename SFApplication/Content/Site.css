@@ -67,8 +67,13 @@ div.top-buffer {
 .navbar {
     padding-right: 15px;
     padding-left: 15px;
-    background-color: #2C4762;
-    border-color: #2C4762;
+    /*background-color: #2C4762;
+    border-color: #2C4762;*/
+    background: rgb(0,44,62);
+    background: -moz-linear-gradient(-45deg, rgba(0,44,62,1) 0%, rgba(0,93,131,1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(0,44,62,1) 0%,rgba(0,93,131,1) 100%);
+    background: linear-gradient(135deg, rgba(0,44,62,1) 0%,rgba(0,93,131,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002c3e', endColorstr='#005d83',GradientType=1 );
 }
 
 .navbar-inverse .navbar-nav > li > a,
@@ -76,8 +81,8 @@ div.top-buffer {
     color: #fff;
 }
 
-ul.navbar-right  a.user-name{
-    cursor:default;
+.navbar-inverse {
+    border-color: transparent;
 }
 
 
@@ -226,11 +231,17 @@ div.custom-cloak.show-tool{
 .modal-dialog {
     width: 650px;
     min-height: 600px;
-    margin: 12% auto;
+    margin: 8% auto;
 }
 .modal-dialog .modal-content {
     padding:20px;
     min-height: 200px;
+}
+
+
+.modal-dialog.modal-lg .modal-content .popup-container {
+    padding: 20px;
+    min-height: 300px;
 }
 
 .modal-open .modal {

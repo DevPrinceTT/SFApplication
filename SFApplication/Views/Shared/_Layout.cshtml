@@ -13,8 +13,8 @@
     @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    @if (WebSecurity.IsAuthenticated || !(ViewBag.HideLayout ?? true))
-    {
+    @*@if (WebSecurity.IsAuthenticated || !(ViewBag.HideLayout ?? true))
+    {*@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container full-width">
                 <div class="navbar-header">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-    }
+    @*}*@
 
     <div class="overlay">
         <div class="white-box">
@@ -55,7 +55,9 @@
 
                 var url = e.target.dataset.url;
                 var controller = e.target.dataset.ngcontroller;
+                var size = e.target.dataset.size;
                 var id = e.target.dataset.id;
+                var querystring = e.target.dataset.querystring;
 
                 //validate url
                 if (typeof (url) == "undefined") {
@@ -78,6 +80,14 @@
                     }
                 }
 
+                //append querystring to url (for edits)
+                if (typeof (querystring) != "undefined") {
+                    if (querystring != "" || querystring != null) {
+                        //add querystring
+                        url += querystring;
+                    }
+                }
+
                 //validate angular controller
                 if (typeof (controller) == "undefined") {
                     console.warn("ng controller not set");
@@ -90,6 +100,15 @@
 
                 angular.element("#body-container").scope().url = url;
                 angular.element("#body-container").scope().controller = controller;
+
+
+                //window size
+                if (typeof (size) != "undefined") {
+                    if (size != "" || size != null) {
+                        angular.element("#body-container").scope().size = size;
+                    }
+                }
+
 
                 angular.element("#body-container").scope().openComponentModal();
 

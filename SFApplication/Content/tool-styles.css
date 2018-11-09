@@ -108,26 +108,26 @@ tr.hidden-table-row {
 }
 
 th {
-    background-color: rgba(44, 71, 98, 0.60);
+    background-color: #3f7594;
     color: #fff;
 }
 
 td.col1,
 th.col1 {
-    width: 10%;
-    max-width: 10%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col2,
 th.col2 {
-    width: 10%;
-    max-width: 10%;
+    width: 8%;
+    max-width: 8%;
 }
 
 td.col3,
 th.col3 {
-    width: 15%;
-    max-width: 15%;
+    width: 25%;
+    max-width: 25%;
 }
 
 td.col4,
@@ -162,38 +162,38 @@ th.col8 {
 
 td.col9,
 th.col9 {
-    width: 8%;
-    max-width: 8%;
+    width: 5%;
+    max-width: 5%;
 }
 
 td.col10,
 th.col10 {
-    width: 8%;
-    max-width: 8%;
+    width: 5%;
+    max-width: 5%;
 }
 
 td.col11,
 th.col11 {
-    width: 8%;
-    max-width: 8%;
+    width: 5%;
+    max-width: 5%;
 }
 
 td.col12,
 th.col12 {
-    width: 8%;
-    max-width: 8%;
+    width: 5%;
+    max-width: 5%;
 }
 
 td.col13,
 th.col13 {
-    width: 8%;
-    max-width: 8%;
+    width: 5%;
+    max-width: 5%;
 }
 
 td.col14,
 th.col14 {
-    width: 8%;
-    max-width: 8%;
+    width: 5%;
+    max-width: 5%;
 }
 
 td.col15,
@@ -307,4 +307,8 @@ td.editable i.edit-icon {
 }
 td.editable:hover i.edit-icon {
     display:inline-block;
+}
+
+.modal-content .total-container{
+    text-align:right;
 }

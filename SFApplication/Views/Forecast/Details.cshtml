@@ -1,19 +1,15 @@
-﻿
-@{
-    ViewBag.HideLayout = true;
-    ViewBag.Title = "Forecast by Consumers";
-    Layout = "~/Views/Shared/_PopupLayout.cshtml";
-}
-<div ng-controller="ToolsController">
-    <div class="{{ 'show-tool' }} container popup-container" id="popup-container">
+﻿<div>
+    <div class="{{ 'show-tool' }} popup-container" id="popup-container">
         <div class="row">
             <div class="col-xs-8">
-                <h3>Product Name</h3>
+                <h3>Consumer Report</h3>
             </div>
-            <div class="col-xs-4 total-container">
+        </div>
+        <div class="row">
+            @*<div class="col-sm-offset-8 col-xs-4 total-container">
                 <span class="total-label">Total:</span>
                 <span class="total-value">1439</span>
-            </div>
+            </div>*@
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -22,38 +18,33 @@
                         <tr>
                             <th style="width:40%;text-align:left">Customer</th>
                             <th style="width:20%">Average {{ 2017 }}</th>
-                            <th style="width:20%">October {{ 2017 }}</th>
+                            <th style="width:20%">{{ MonthName }} {{ 2017 }}</th>
                             <th style="width:20%">Forecast</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td style="width:40%;text-align:left">Test Customer</td>
-                            <td style="width:20%"></td>
-                            <td style="width:20%"></td>
-                            <td style="width:20%"></td>
+                        <tr ng-repeat="customer in Customers">
+                            <td style="width:40%;text-align:left">{{ customer.CustomerName }}</td>
+                            <td style="width:20%">@*{{ customer.Average | number : 2 }}*@</td>
+                            <td style="width:20%">@*{{ customer.MonthUsage }}*@</td>
+                            <td style="width:20%">@*{{ customer.Quantity }}*@</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
+        <div id="loading" class="text-center">Loading...</div>
     </div>
-    <footer class="footer">
+    <div class="footer">
         <div class="row">
             <div class="col-xs-6" style="float:right; text-align:right;">
                 <button class="btn btn-default" ng-click="closePopup()">Cancel</button>
                 <button class="btn btn-success" ng-click="saveDetails()">Save</button>
             </div>
         </div>
-    </footer>
+    </div>
 </div>
 
-@section Scripts{
-    <script>
-        window.onunload = function (e) {
-            //opener.somefunction(); 
-            //dispatch new event
-        };
-    </script>
-}
+<script>
+    angular.element("#popup-container").scope().populateList(@ViewBag.ItemId, @ViewBag.Month);
+</script>

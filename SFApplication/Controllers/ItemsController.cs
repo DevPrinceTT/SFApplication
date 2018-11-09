@@ -26,12 +26,19 @@ namespace SFApplication.Controllers
                 return RedirectToAction("Logout", "Account");
             }
 
+            db.Database.ExecuteSqlCommand("EXEC AAA2018_SYNC_GP_ITEMS");
+
             return View();
         }
 
         // GET: Items/AddItem
         public ActionResult AddItem()
         {
+            if (!WebSecurity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             return PartialView();
         }
 

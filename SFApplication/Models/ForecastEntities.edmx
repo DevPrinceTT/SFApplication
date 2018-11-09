@@ -176,6 +176,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AAA2018_CONSUMER_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="VendorItemId" Type="nvarchar" Mode="In" />
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AAA2018_CONSUMER_REPORT_DATA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="VendorItemId" Type="nvarchar" Mode="In" />
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="CustomerNumber" Type="varchar" MaxLength="15" />
+                <Property Name="CustomerName" Type="varchar" MaxLength="65" />
+                <Property Name="OverallUsage" Type="numeric" Precision="38" Scale="5" Nullable="false" />
+                <Property Name="Average" Type="numeric" Precision="38" Scale="6" />
+                <Property Name="MonthlyUsage" Type="numeric" Precision="38" Scale="5" Nullable="false" />
+                <Property Name="Rank" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="AAA2018_GET_FORECAST_SUMMARY_DATA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ForecastId" Type="int" Mode="In" />
           <ReturnType>
@@ -196,6 +218,18 @@
                 <Property Name="VendorItemDescription" Type="nvarchar" MaxLength="50" />
                 <Property Name="CustomItem" Type="bit" />
                 <Property Name="Synced" Type="bit" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="AAA2018_GPITEM_SYNC_ERRORS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID" Type="nvarchar" MaxLength="101" />
+                <Property Name="IdType" Type="varchar" MaxLength="8" Nullable="false" />
+                <Property Name="RecordLocation" Type="varchar" MaxLength="5" Nullable="false" />
+                <Property Name="ErrorMessage" Type="varchar" MaxLength="42" Nullable="false" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -249,10 +283,21 @@
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="tbl_Users" EntitySet="tbl_Users" />
           </AssociationSet>
-          <FunctionImport Name="AAA2018_GET_FORECAST_SUMMARY_DATA" IsComposable="true" ReturnType="Collection(ForecastModel.AAA2018_GET_FORECAST_SUMMARY_DATA_Result)">
-            <Parameter Name="ForecastId" Mode="In" Type="Int32" />
+          <FunctionImport Name="AAA2018_CONSUMER_REPORT">
+            <Parameter Name="VendorItemId" Mode="In" Type="String" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="AAA2018_GET_FORECAST_SUMMARY_DATA" IsComposable="true" ReturnType="Collection(ForecastModel.AAA2018_GET_FORECAST_SUMMARY_DATA_Result)">
+          <Parameter Name="ForecastId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AAA2018_GPITEM_SYNC_ERRORS" IsComposable="true" ReturnType="Collection(ForecastModel.AAA2018_GPITEM_SYNC_ERRORS_Result)" />
           <FunctionImport Name="AAA2018_SYNC_GP_ITEMS" ReturnType="Collection(ForecastModel.AAA2018_SYNC_GP_ITEMS_Result)" />
+          <FunctionImport Name="AAA2018_CONSUMER_REPORT_DATA" IsComposable="true" ReturnType="Collection(ForecastModel.AAA2018_CONSUMER_REPORT_DATA_Result)">
+            <Parameter Name="VendorItemId" Mode="In" Type="String" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="gp_InventoryItems">
           <Key>
@@ -416,6 +461,12 @@
           <Property Type="Boolean" Name="CustomItem" Nullable="true" />
           <Property Type="Boolean" Name="Synced" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="AAA2018_GPITEM_SYNC_ERRORS_Result">
+          <Property Type="String" Name="ID" Nullable="true" MaxLength="101" />
+          <Property Type="String" Name="IdType" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="RecordLocation" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="ErrorMessage" Nullable="false" MaxLength="42" />
+        </ComplexType>
         <ComplexType Name="AAA2018_SYNC_GP_ITEMS_Result">
           <Property Type="String" Name="ITEMNMBR" Nullable="false" MaxLength="31" />
           <Property Type="String" Name="ITEMDESC" Nullable="false" MaxLength="101" />
@@ -533,6 +584,14 @@
           <Property Type="Decimal" Name="ORDERMULTIPLE" Nullable="true" Precision="19" Scale="5" />
           <Property Type="String" Name="MNFCTRITMNMBR" Nullable="true" MaxLength="31" />
           <Property Type="Int32" Name="DEX_ROW_ID1" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="AAA2018_CONSUMER_REPORT_DATA_Result">
+          <Property Type="String" Name="CustomerNumber" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="65" />
+          <Property Type="Decimal" Name="OverallUsage" Nullable="false" Precision="38" Scale="5" />
+          <Property Type="Decimal" Name="Average" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="MonthlyUsage" Nullable="false" Precision="38" Scale="5" />
+          <Property Type="Int32" Name="Rank" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -698,6 +757,7 @@
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="AAA2018_CONSUMER_REPORT" FunctionName="ForecastModel.Store.AAA2018_CONSUMER_REPORT" />
           <FunctionImportMapping FunctionImportName="AAA2018_GET_FORECAST_SUMMARY_DATA" FunctionName="ForecastModel.Store.AAA2018_GET_FORECAST_SUMMARY_DATA">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ForecastModel.AAA2018_GET_FORECAST_SUMMARY_DATA_Result">
@@ -716,6 +776,16 @@
                 <ScalarProperty Name="VendorItemDescription" ColumnName="VendorItemDescription" />
                 <ScalarProperty Name="CustomItem" ColumnName="CustomItem" />
                 <ScalarProperty Name="Synced" ColumnName="Synced" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AAA2018_GPITEM_SYNC_ERRORS" FunctionName="ForecastModel.Store.AAA2018_GPITEM_SYNC_ERRORS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ForecastModel.AAA2018_GPITEM_SYNC_ERRORS_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="RecordLocation" ColumnName="RecordLocation" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -838,6 +908,18 @@
                 <ScalarProperty Name="ORDERMULTIPLE" ColumnName="ORDERMULTIPLE" />
                 <ScalarProperty Name="MNFCTRITMNMBR" ColumnName="MNFCTRITMNMBR" />
                 <ScalarProperty Name="DEX_ROW_ID1" ColumnName="DEX_ROW_ID1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AAA2018_CONSUMER_REPORT_DATA" FunctionName="ForecastModel.Store.AAA2018_CONSUMER_REPORT_DATA">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ForecastModel.AAA2018_CONSUMER_REPORT_DATA_Result">
+                <ScalarProperty Name="CustomerNumber" ColumnName="CustomerNumber" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="OverallUsage" ColumnName="OverallUsage" />
+                <ScalarProperty Name="Average" ColumnName="Average" />
+                <ScalarProperty Name="MonthlyUsage" ColumnName="MonthlyUsage" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
